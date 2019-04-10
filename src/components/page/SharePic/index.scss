@@ -1,0 +1,91 @@
+$border-color: #e9e4e6;
+$sec_bg-color: #f5f6f6;
+$bg_color:#f8f1f1;
+.sharePic {
+  height: 100%;
+  width: 100%;
+  background: $bg_color;
+  section {
+    position: absolute;
+    top: 1rem;
+    bottom: 0;
+    width: 100%;
+    .photo-domain {
+      margin-top: 0.3rem;
+      border-top: 1px solid $border-color;
+      border-bottom: 1px solid $border-color;
+      min-height: 2rem;
+      height: auto;
+      background: $sec_bg-color;
+      li{
+          position: relative;
+
+      }
+    }
+    .title-brief {
+      margin-top: 0.3rem;
+      border-top: 1px solid $border-color;
+      background: $sec_bg-color;
+      li {
+        font-size: 16px;
+        min-height: .8rem;
+        height: auto;
+        line-height: .8rem;
+        color:#666;
+        border-bottom: 1px solid $border-color;
+        span{
+            float: left;
+            display: inline-block;
+            width: 2rem;
+            text-align: center;
+        }
+        input{
+            width: 5rem;
+            padding:0 .2rem;
+            background: $sec_bg-color;
+        }
+        textarea{
+            width: 5rem;
+            height: 4rem;
+            padding:0 .2rem;
+            background: $sec_bg-color;
+        }
+      }
+    }
+    .classify{
+      margin-top: 0.3rem;
+      border-top: 1px solid $border-color;
+      background: $sec_bg-color;
+      dt,dd{
+        font-size: 16px;
+        min-height: .8rem;
+        height: auto;
+        line-height: .8rem;
+        color:#666;
+        border-bottom: 1px solid $border-color;
+        input{
+            background: $sec_bg-color;
+        }
+        span{
+            display: inline-block;
+            width: 2rem;
+            text-align: center;
+        }
+        li{
+            margin:.1rem .3rem;
+            display: inline-block;
+            width: 1.5rem;
+            height: .6rem;
+            line-height: .6rem;
+            text-align: center;
+            border: 1px solid $border-color;
+            background: $sec_bg-color;
+        }
+      }
+      dd{
+          background: $bg_color; 
+          border: none;
+      }
+    }
+  }
+}

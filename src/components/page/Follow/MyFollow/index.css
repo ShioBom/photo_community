@@ -1,0 +1,49 @@
+.myFollow{
+    width: 100%;
+    height: 100%;
+}
+.myFollow ul{
+    width: 100%;
+    height: 100%;
+}
+.myFollow .title{
+    height: 1rem;
+    background: #f9f8eb;
+    color: #444;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: .1rem;
+}
+.myFollow .title>div{
+    width: 100%;
+}
+.myFollow .title img{
+    height: .6rem;
+    width: .6rem;
+    border-radius: .3rem;
+}
+.myFollow .title .portrait{
+    width: .6rem;
+    height: .6rem;
+}
+.myFollow .title p{
+    height: .6rem;
+    line-height: .6rem;
+    width: 60%;
+}
+.myFollow .title span {
+    color: #4182b9;
+    display: block;
+    width: 1.2rem;
+    height: .6rem;
+    line-height: .6rem;
+    border-radius: .1rem;
+    text-align: center;
+    border: 1px solid #4182b9;
+}
+.myFollow .title span.followed{
+    color: #666;
+    border: 1px solid #666;
+    background: #ccc;
+}

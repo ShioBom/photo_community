@@ -1,0 +1,72 @@
+.index_body {
+    background: url("/img/icon/loading.gif") no-repeat center .5rem;
+}
+.index_body dl{
+    width: 100%;
+}
+
+.index_body dl dd{
+    width: 100%;
+    height: 5rem;
+    overflow: hidden;
+}
+.index_body dl dd img{
+    width: 100%;
+}
+.index_body .swiper{
+    height: 2.6rem;
+    padding: .2rem .2rem 0 .2rem;
+    width: 100%;
+}
+.index_body .swiper .swiper-slide {
+    height: 2.4rem;
+    border-radius: .1rem;
+    width: 100%;
+    overflow: hidden;
+    background: rgb(47, 255, 255);
+}
+.index_body .swiper .swiper-slide img{
+     width: 100%;
+}
+.index_body .title{
+    height: 1rem;
+    background: #fff;
+    color: #373640;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.index_body .title>div{
+    width: 100%;
+}
+.index_body .title img{
+    height: .6rem;
+    width: .6rem;
+    border-radius: .3rem;
+}
+.index_body .title .portrait{
+    width: .6rem;
+    height: .6rem;
+}
+.index_body .title p{
+    height: .6rem;
+    line-height: .6rem;
+    width: 60%;
+}
+.index_body .title span {
+    color: #4182b9;
+    display: block;
+    width: 1.2rem;
+    height: .6rem;
+    line-height: .6rem;
+    border-radius: .1rem;
+    text-align: center;
+    border: 1px solid #4182b9;
+}
+.index_body .title span.followed{
+    color: #63686e;
+    border: 1px solid #63686e;
+    background: #ccc;
+}
+
+

@@ -1,0 +1,13 @@
+.main {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.body {
+    position: absolute;
+    top: 2rem;
+    bottom: 1.3rem;
+    width: 100%;
+    overflow: hidden;
+}
