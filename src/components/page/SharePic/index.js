@@ -1,37 +1,40 @@
 import React, { Component } from "react";
 import Top from "../../common/top";
 import ImagePicker from "./ImagePicker";
-
+import { withRouter } from 'react-router-dom'
 import "./index.scss";
-
-export default class SharePic extends Component {
+class SharePic extends Component {
   constructor(props) {
     super(props);
     this.state = {
       work: {
-        w_id: Date.now(), //作品id
+        w_id: parseInt(Date.now()%1000000), //作品id
         w_title: "", //作品标题
         w_content: "", //作品描述
-        w_sort: "", //作品类别},
-        photos: []
+        w_sort: 0, //作品类别},
+        photos: [],
+        u_id: "huihui"
       },
-      files:[],
+      files: [],
       sorts: []
     };
   }
   //改变作品图片
-  photoChange(files,type,index) {
-    this.setState({files:files});
+  photoChange(files) {
+    this.setState({ files: files });
+  }
+  //发布作品，将作品保存到数据库中去
+  releaseWork() {
+    console.log("发布作品");
+    let files = this.state.files;
     var formData = new FormData();
     if (files.length > 0) {
       for (let i = 0; i < files.length; i++) {
         formData.append("files", files[i].file);
       }
     }
-  }
-  //发布作品
-  releaseWork(){
-
+   this.postData(formData);
+    
   }
   //保存图片到服务器并返回图片路径
   postData(formData) {
@@ -43,11 +46,31 @@ export default class SharePic extends Component {
         "Content-Type": "multipart/form-data"
       }
     }).then(res => {
-      let data=res.data;
+      let { status, data } = res.data;
       //status==1表示成功获取到数据
-     if(res.status===1){
-       console.log(data.path);
-     };
+      if (status === 1) {
+        let photos = [];
+        data.forEach((val, ind) => {
+          //拿到图片id
+          let p_id = val.path.split(".")[0].split("/")[2];
+          //拿到图片路径
+          let p_path = val.path.replace("public", "http://192.168.56.1:3001");
+          photos.push({ p_id: parseInt(p_id.substring(0, 6)),w_id:this.state.work.w_id, p_path });
+        });
+        //改变state
+        this.setState(state => {
+          state.work.photos = Object.assign([], photos);
+          return state;
+        });
+        console.log(this.state.work.photos);
+        //将作品信息保存到数据库里面去
+        this.$axios({
+          method: "post",
+          url: "http://192.168.56.1:3001/admin/releaseWork",
+          type: "json",
+          data: this.state.work
+        });
+      }
     });
   }
   //改变作品标题
@@ -57,7 +80,6 @@ export default class SharePic extends Component {
       state.work.w_title = val;
       return state;
     });
-    console.log(this.state.work);
   }
   //改变作品内容
   contentChange(e) {
@@ -66,11 +88,9 @@ export default class SharePic extends Component {
       state.work.w_content = val;
       return state;
     });
-    console.log(this.state.work);
   }
   //获取作品类型
   getSort(ele) {
-    console.log(ele.s_id);
     this.setState(state => {
       state.work.w_sort = ele.s_id;
       return state;
@@ -78,16 +98,18 @@ export default class SharePic extends Component {
   }
   //生命周期钩子函数
   componentDidMount() {
+    console.log(this.props);
+    //获取作品类型，渲染到页面
     this.$axios.get("http://localhost:3001/admin/getType").then(res => {
       let result = res.data;
+      console.log(result)
       this.setState({ sorts: result });
-      console.log(this.state.sorts);
     });
   }
   render() {
     return (
       <div className="sharePic">
-        <Top/>
+        <Top releaseWork={this.releaseWork.bind(this)} />
         <section>
           <ul className="photo-domain">
             <li>
@@ -144,3 +166,5 @@ export default class SharePic extends Component {
     );
   }
 }
+
+export default withRouter(SharePic);
