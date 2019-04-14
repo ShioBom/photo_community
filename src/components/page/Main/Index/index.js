@@ -62,6 +62,7 @@ class Index extends Component {
           return ele.following === obj.u_id;
         });
         self.props.removeFollow(ind);
+        console.log(this.props.FollowList);
         self.setState(state => {
           state.FollowList = self.props.FollowList;
           return state;

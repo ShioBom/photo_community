@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import "./index.css";
-import {Toast} from 'antd-mobile';
+import { Toast } from "antd-mobile";
+const followList = [];
 class MyFollow extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      data: JSON.parse(JSON.stringify(this.props.Props.FollowList))
+      data: followList
     };
   }
-   //点击关注
+  //点击关注
   follow(obj) {
     console.log(obj);
     let self = this;
@@ -45,26 +46,23 @@ class MyFollow extends Component {
   //取消关注,完成
   unfollow(obj) {
     let self = this;
-    self.props = this.props.Props;
-    console.log(obj);
-    console.log(this.props);
-    console.log(this.state.data);
+    let this_props = this.props.Props;
     this.$axios({
       method: "post",
       url: "http://localhost:3001/admin/unFollow",
       data: {
         fid: obj.following,
-        uid: this.props.login.id
+        uid: this_props.login.id
       }
     }).then(res => {
       if (res.data.status === 1) {
         let ind = self.state.data.findIndex(ele => {
           return ele.following === obj.following;
         });
-        console.log(self.props);
-        self.props.removeFollow(ind);
+        console.log(ind);
+        this_props.removeFollow(ind);
         self.setState(state => {
-          state.data = self.props.FollowList;
+          state.data = JSON.parse(JSON.stringify(self.props.Props.FollowList));
           return state;
         });
       }
@@ -72,7 +70,7 @@ class MyFollow extends Component {
   }
   //关注状态显示
   followStatus(obj) {
-    let flag = false; //
+    let flag = false; 
     //如果登录了,关注列表已经初始化
     if (this.state.data.length > 0) {
       for (let i = 0; i < this.state.data.length; i++) {
@@ -86,47 +84,54 @@ class MyFollow extends Component {
   }
   //解决更新redux的state之后,页面不刷新的问题,props改变时触发
   componentWillReceiveProps(nextProps) {
-    // console.log("oldProps", this.props);
-    // console.log("newProps", nextProps);
+    console.log("oldProps", this.props);
+    console.log("newProps", nextProps);
     //判断有没有更新数据
     if (this.props !== nextProps) {
       this.props = nextProps;
     }
   }
 
-  componentDidMount(){
-      console.log(this.props.Props);
+  componentDidMount() {
+    this.setState(state => {
+      state.data = JSON.parse(JSON.stringify(this.props.Props.FollowList));
+      return state;
+    });
+
+    console.log(this.props.Props);
   }
   render() {
     return (
       <div className="myFollow">
         <ul>
-          {this.state.data.map((obj,ind)=>{
-            return( <li className="title" key={ind}>
-                  <div className="portrait">
-                        <img src={obj.u_portrait} alt="头像" />
-                  </div>
-                  <p>{obj.u_name}</p>
-              {this.followStatus(obj) ? (
-                    <span
-                      onTouchEnd={() => {
-                    this.follow(obj);
-                      }}
-                    >
-                      {" "}
-                      + 关注
-                    </span>
-                  ) : (
-                    <span
-                      className="followed"
-                      onTouchEnd={() => {
-                        this.unfollow(obj);
-                      }}
-                    >
-                      已关注
-                    </span>
-                  )}
-                </li>)
+          {this.state.data.map((obj, ind) => {
+            return (
+              <li className="title" key={ind}>
+                <div className="portrait">
+                  <img src={obj.u_portrait} alt="头像" />
+                </div>
+                <p>{obj.u_name}</p>
+                {this.followStatus(obj) ? (
+                  <span
+                    onTouchEnd={() => {
+                      this.follow(obj);
+                    }}
+                  >
+                    {" "}
+                    + 关注
+                  </span>
+                ) : (
+                  <span
+                    className="followed"
+                    onTouchEnd={() => {
+                      this.unfollow(obj);
+                    }}
+                  >
+                    已关注
+                  </span>
+                )}
+              </li>
+            );
           })}
         </ul>
       </div>
