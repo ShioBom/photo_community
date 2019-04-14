@@ -12,7 +12,7 @@ class MyFollow extends Component {
   }
   //点击关注
   follow(obj) {
-    console.log(obj);
+    console.log("follow",obj);
     let self = this;
     if (JSON.stringify(this.props.login) === "{}") {
       //轻提示
