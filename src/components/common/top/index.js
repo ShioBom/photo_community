@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import "./index.scss"
+import { withRouter } from 'react-router-dom'
 
-export default class index extends Component {
+class Nav extends Component {
   constructor(props) {
     super(props)
   
@@ -9,14 +10,21 @@ export default class index extends Component {
        
     }
   }
+  onBack(){
+    this.props.history.goBack();
+    console.log(this.props);
+  }
   render() {
     return (
         <header className="top">
-            <span>×</span>
+            <span onClick={()=>{
+          this.onBack()
+            }}>×</span>
             <span>发作品</span>
             <span onTouchEnd={this.props.releaseWork}>发布</span>
         </header>
     )
   }
 }
+export default withRouter(Nav);
 

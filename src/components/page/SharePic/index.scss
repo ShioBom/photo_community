@@ -1,7 +1,9 @@
-$border-color: #e9e4e6;
-$sec_bg-color: #f5f6f6;
-$bg_color: #f8f1f1;
+$border-color: #f3f8ff;
+$sec_bg-color: #deecff;
+$bg_color: #f3f8ff;
+$font-color:#1c819e;
 .sharePic {
+  color:$font-color;
   height: 100%;
   width: 100%;
   background: $bg_color;
@@ -22,6 +24,8 @@ $bg_color: #f8f1f1;
       }
     }
     .title-brief {
+  color:$font-color;
+
       margin-top: 0.3rem;
       border-top: 1px solid $border-color;
       background: $sec_bg-color;
@@ -30,7 +34,6 @@ $bg_color: #f8f1f1;
         min-height: 0.8rem;
         height: auto;
         line-height: 0.8rem;
-        color: #666;
         border-bottom: 1px solid $border-color;
         span {
           float: left;
@@ -43,15 +46,22 @@ $bg_color: #f8f1f1;
           padding: 0 0.2rem;
           background: $sec_bg-color;
         }
+        input::-webkit-input-placeholder{
+            color:$font-color;
+        }
         textarea {
           width: 5rem;
           height: 4rem;
           padding: 0 0.2rem;
           background: $sec_bg-color;
         }
+         textarea::-webkit-input-placeholder{
+            color:$font-color;
+        }
       }
     }
     .classify {
+      
       margin-top: 0.3rem;
       border-top: 1px solid $border-color;
       background: $sec_bg-color;
@@ -61,11 +71,7 @@ $bg_color: #f8f1f1;
         min-height: 0.8rem;
         height: auto;
         line-height: 0.8rem;
-        color: #666;
         border-bottom: 1px solid $border-color;
-        input {
-          background: $sec_bg-color;
-        }
         span {
           display: inline-block;
           width: 2rem;
@@ -73,14 +79,15 @@ $bg_color: #f8f1f1;
         }
         ul {
           li {
-            margin: 0.1rem 0.3rem;
+            border-radius: .1rem;
+            margin: 0.15rem 0.32rem;
             display: inline-block;
             width: 1.2rem;
             height: 0.6rem;
             line-height: 0.6rem;
             text-align: center;
             border: 1px solid $border-color;
-            background: $sec_bg-color;
+            background: #f2efb6;
           }
         }
       }

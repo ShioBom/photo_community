@@ -54,7 +54,7 @@ class SharePic extends Component {
           //拿到图片id
           let p_id = val.path.split(".")[0].split("/")[2];
           //拿到图片路径
-          let p_path = val.path.replace("public", "http://192.168.56.1:3001");
+          let p_path = val.path.replace("public/upload/", "");
           photos.push({ p_id: parseInt(p_id.substring(0, 6)),w_id:this.state.work.w_id, p_path });
         });
         //改变state
@@ -90,15 +90,24 @@ class SharePic extends Component {
     });
   }
   //获取作品类型
-  getSort(ele) {
+  getSort(ele,e) {
     this.setState(state => {
       state.work.w_sort = ele.s_id;
       return state;
     });
+    //将所有按钮的颜色设置未默认颜色
+    let object = e.target.parentNode.children;
+    for (const key in object) {
+      if (object.hasOwnProperty(key)) {
+        const element = object[key];
+        element.style.background = "#f2efb6";
+      }
+    }
+    //设置选中的按钮的颜色
+    e.target.style.background ="#7fe7cc";
   }
   //生命周期钩子函数
   componentDidMount() {
-    console.log(this.props);
     //获取作品类型，渲染到页面
     this.$axios.get("http://localhost:3001/admin/getType").then(res => {
       let result = res.data;
@@ -150,8 +159,8 @@ class SharePic extends Component {
                   return (
                     <li
                       key={ele.s_id}
-                      onTouchEnd={() => {
-                        this.getSort(ele);
+                      onTouchEnd={(e) => {
+                        this.getSort(ele,e);
                       }}
                     >
                       {ele.s_type}
