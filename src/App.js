@@ -41,7 +41,7 @@ class App extends Component {
           <Route exact path="/MyInfo" component={MyInfo}></Route>
           <Route exact path="/Login" component={Login}></Route>
           <Route exact path="/Register" component={Register}></Route>
-          <Route exact path ="/Follow" component = {Follow}></Route>
+          <Route exact path ="/Follow/:page" component = {Follow}></Route>
           <Route exact path="/SharePic" component={SharePic}></Route>
            
           <Route path="/" component={Main}></Route>

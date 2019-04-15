@@ -28,7 +28,7 @@ class Footer extends Component{
               </NavLink>
             </li>
             <li>
-              <NavLink exact to="/Follow" activeClassName="selected">
+              <NavLink exact to="/Follow/0" activeClassName="selected">
                 <i className="icon-uniE007"></i><span>关注</span>
               </NavLink>
             </li>

@@ -1,6 +1,6 @@
 const initialState = {
   login: JSON.parse(sessionStorage.getItem("userInfo") || "{}"),
-  FollowList: JSON.parse(localStorage.getItem("FollowList") || "[]")
+  FollowList: JSON.parse(sessionStorage.getItem("FollowList") || "[]")
 };
 
 //定义改变状态的方法,对state进行增删查改
@@ -22,23 +22,23 @@ const reducers = function(state = initialState, action) {
     //向仓储里添加关注列表
     case "addFollowList":
       state.FollowList = action.obj;
-      localStorage.setItem("FollowList", JSON.stringify(action.obj));
+      sessionStorage.setItem("FollowList", JSON.stringify(action.obj));
       return state;
     //移除某条关注
     case "removeFollow":
       let newState = JSON.parse(JSON.stringify(state));
       newState.FollowList.splice(action.ind, 1);
       if (newState.FollowList.length === 0) {
-        localStorage.removeItem("FollowList");
+        sessionStorage.removeItem("FollowList");
       } else {
-        localStorage.setItem("FollowList", JSON.stringify(newState.FollowList));
+        sessionStorage.setItem("FollowList", JSON.stringify(newState.FollowList));
       }
       return newState;
     //添加某条关注
     case "addFollow":
       let newState2 = JSON.parse(JSON.stringify(state));
       newState2.FollowList.push(action.obj);
-      localStorage.setItem("FollowList", JSON.stringify(newState2.FollowList));
+      sessionStorage.setItem("FollowList", JSON.stringify(newState2.FollowList));
       return newState2;
     default:
       return state;

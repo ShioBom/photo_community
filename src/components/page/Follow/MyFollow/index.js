@@ -82,16 +82,6 @@ class MyFollow extends Component {
       return flag;
     }
   }
-  //解决更新redux的state之后,页面不刷新的问题,props改变时触发
-  componentWillReceiveProps(nextProps) {
-    console.log("oldProps", this.props);
-    console.log("newProps", nextProps);
-    //判断有没有更新数据
-    if (this.props !== nextProps) {
-      this.props = nextProps;
-    }
-  }
-
   componentDidMount() {
     this.setState(state => {
       state.data = JSON.parse(JSON.stringify(this.props.Props.FollowList));

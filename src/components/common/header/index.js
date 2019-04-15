@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {NavLink} from 'react-router-dom';
 import "./index.css";
 class Header extends Component{
     constructor(props) {
@@ -19,11 +18,6 @@ class Header extends Component{
                 </form>
               </div>
             </div>
-          <ul className="head_nav">
-            {this.props.navs.map((obj, ind)=> 
-            <li key={ind}><NavLink exact to={obj.path} activeClassName="selected">{obj.title}</NavLink></li>)
-            }
-          </ul>
         </header>
       )
     };
