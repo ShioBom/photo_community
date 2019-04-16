@@ -7,7 +7,7 @@ class Nav extends Component {
     super(props)
   
     this.state = {
-       
+       title:this.props.title
     }
   }
   onBack(){
@@ -20,7 +20,7 @@ class Nav extends Component {
             <span onClick={()=>{
           this.onBack()
             }}>×</span>
-            <span>发作品</span>
+            <span>{this.state.title}</span>
             <span onTouchEnd={this.props.releaseWork}>发布</span>
         </header>
     )

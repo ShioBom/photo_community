@@ -3,6 +3,7 @@ import IScroll from "iscroll/build/iscroll-probe.js";
 import "./index.css";
 import Swiper from "swiper/dist/js/swiper.js";
 import "swiper/dist/css/swiper.min.css";
+import { withRouter } from "react-router-dom";
 import { Toast } from "antd-mobile";
 class Index extends Component {
   constructor(props) {
@@ -115,6 +116,11 @@ class Index extends Component {
       }
     });
   }
+  //进入详情页面
+  goDetail(data) {
+    let obj = { 'u_id': data.u_id, 'w_id': data.w_id};
+    this.props.history.push("/Detail/" +JSON.stringify(obj));
+  }
   render() {
     return (
       <div className="index_body body">
@@ -135,7 +141,6 @@ class Index extends Component {
                   <img src="/img/swiper/swiper04.jpg" alt="轮播图4" />
                 </div>
               </div>
-
             </div>
           </dt>
           {this.state.works.map((obj, ind) => {
@@ -171,6 +176,9 @@ class Index extends Component {
                   src="/img/icon/loading.jpg"
                   data_src={obj.w_img}
                   alt="图片迷路了!!!"
+                  onTouchEnd={() => {
+                    this.goDetail(obj);
+                  }}
                 />
               </dd>
             );
@@ -229,4 +237,4 @@ class Index extends Component {
       });
   }
 }
-export default Index;
+export default withRouter(Index);

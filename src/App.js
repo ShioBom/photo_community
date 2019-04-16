@@ -6,6 +6,7 @@ import MyInfo from './container/page/MyInfo';
 import Login from './container/page/Login';
 import Register from './components/page/Register';
 import Create from './components/page/create';
+import Detail from "./components/page/Detail";
 import Follow from './container/page/Follow';
 import SharePic from "./components/page/SharePic";
 import {CSSTransition} from 'react-transition-group';
@@ -35,27 +36,28 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-      <div className="App">
-     
-        <Switch>
-          <Route exact path="/MyInfo" component={MyInfo}></Route>
-          <Route exact path="/Login" component={Login}></Route>
-          <Route exact path="/Register" component={Register}></Route>
-          <Route exact path ="/Follow/:page" component = {Follow}></Route>
-          <Route exact path="/SharePic" component={SharePic}></Route>
-           
-          <Route path="/" component={Main}></Route>
-        </Switch>
-          <CSSTransition in={this.state.isShow} timeout={2000} classNames={
-            {
+        <div className="App">
+          <Switch>
+            <Route exact path="/MyInfo" component={MyInfo} />
+            <Route exact path="/Login" component={Login} />
+            <Route exact path="/Register" component={Register} />
+            <Route exact path="/Follow/:page" component={Follow} />
+            <Route exact path="/SharePic" component={SharePic} />
+            <Route exact path="/Detail/:id" component={Detail} />
+            <Route path="/" component={Main} />
+          </Switch>
+          <CSSTransition
+            in={this.state.isShow}
+            timeout={2000}
+            classNames={{
               enter: "animated",
               enterActive: "slideInUp",
-              enterDone: "animated slideInUp",
-            }
-          }>
-            <Create></Create>
+              enterDone: "animated slideInUp"
+            }}
+          >
+            <Create />
           </CSSTransition>
-      </div>
+        </div>
       </BrowserRouter>
     );
   }
