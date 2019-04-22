@@ -6,6 +6,7 @@ class MyInfo extends Component {
     super(props);
 
     this.state = {
+      title:"作品详情",
       str: "登录/注册",
       portrait_src: "/img/portrait/default.jpg",
       isExit: false,

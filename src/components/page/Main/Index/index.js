@@ -4,7 +4,8 @@ import "./index.css";
 import Swiper from "swiper/dist/js/swiper.js";
 import "swiper/dist/css/swiper.min.css";
 import { withRouter } from "react-router-dom";
-import { Toast } from "antd-mobile";
+import Toast from "antd-mobile/lib/toast";// 加载 CSS
+import "antd-mobile/lib/toast/style/css"; 
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -101,24 +102,28 @@ class Index extends Component {
     //自定义滚动事件
     let oImg = document.querySelectorAll(".work_img");
     //前两张图片不需要懒加载;
-    oImg[0].setAttribute("src", oImg[0].getAttribute("data_src"));
-    oImg[1].setAttribute("src", oImg[1].getAttribute("data_src"));
-    //后续图片懒加载
-    myScroll.on("scroll", function() {
-      for (let i = 2; i < oImg.length; i++) {
-        if (
-          Math.abs(oImg[i].offsetTop < Math.abs(this.y) + oContent.offsetHeight)
-        ) {
-          setTimeout(() => {
-            oImg[i].setAttribute("src", oImg[i].getAttribute("data_src"));
-          }, 200);
-        }
-      }
-    });
+   if(oImg.length>0){
+     oImg[0].setAttribute("src", oImg[0].getAttribute("data_src"));
+     oImg[1].setAttribute("src", oImg[1].getAttribute("data_src"));
+     //后续图片懒加载
+     myScroll.on("scroll", function () {
+       for (let i = 2; i < oImg.length; i++) {
+         if (
+           Math.abs(oImg[i].offsetTop < Math.abs(this.y) + oContent.offsetHeight)
+         ) {
+           setTimeout(() => {
+             oImg[i].setAttribute("src", oImg[i].getAttribute("data_src"));
+           }, 200);
+         }
+       }
+     });
+   }
+   
   }
   //进入详情页面
   goDetail(data) {
     let obj = { 'u_id': data.u_id, 'w_id': data.w_id};
+    console.log(obj);
     this.props.history.push("/Detail/" +JSON.stringify(obj));
   }
   render() {
@@ -153,7 +158,7 @@ class Index extends Component {
                   <p>{obj.u_name}</p>
                   {!this.followStatus(obj) ? (
                     <span
-                      onTouchEnd={() => {
+                      onClick={() => {
                         this.follow(obj);
                       }}
                     >
@@ -163,7 +168,7 @@ class Index extends Component {
                   ) : (
                     <span
                       className="followed"
-                      onTouchEnd={() => {
+                      onClick={() => {
                         this.unfollow(obj);
                       }}
                     >
@@ -176,7 +181,7 @@ class Index extends Component {
                   src="/img/icon/loading.jpg"
                   data_src={obj.w_img}
                   alt="图片迷路了!!!"
-                  onTouchEnd={() => {
+                  onClick={() => {
                     this.goDetail(obj);
                   }}
                 />

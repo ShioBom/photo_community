@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import Footer from "../../common/footer";
-import { Tabs, Badge } from "antd-mobile";
+import Tabs from "antd-mobile/lib/tabs"; // 加载 JS
+import "antd-mobile/lib/tabs/style/css"; 
+import Badge from "antd-mobile/lib/badge"; // 加载 JS
+import "antd-mobile/lib/badge/style/css"; 
 import MyFollow from './MyFollow';
+import MyWork from "./MyWork";
 import "./index.css";
 class Follow extends Component {
   constructor(props) {
@@ -27,10 +31,10 @@ class Follow extends Component {
               <MyFollow Props={this.props} />
             </div>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", backgroundColor: "#fff" }}>
-              动态
+            
             </div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%", backgroundColor: "#fff" }}>
-            作品
+            <MyWork />
             </div>
             />
           </Tabs>

@@ -1,4 +1,8 @@
-import { ImagePicker, WingBlank } from "antd-mobile";
+// import { ImagePicker, WingBlank } from "antd-mobile";
+import ImagePicker from "antd-mobile/lib/image-picker";  // 加载 JS
+import WingBlank from "antd-mobile/lib/wing-blank";
+import 'antd-mobile/lib/image-picker/style/css';        // 加载 CSS
+import "antd-mobile/lib/wing-blank/style/css";   
 import React from "react";
 // const data = [];
 
@@ -21,7 +25,7 @@ class ImagePickerExample extends React.Component {
           files={this.props.files}
           onChange={this.props.photoChange}
           onImageClick={(index, fs) => console.log(index, fs)}
-          selectable={files.length < 7}
+          selectable={files.length < 20}
           multiple={this.state.multiple}
         />
       </WingBlank>

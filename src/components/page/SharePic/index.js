@@ -13,7 +13,7 @@ class SharePic extends Component {
         w_content: "", //作品描述
         w_sort: 0, //作品类别},
         photos: [],
-        u_id: "huihui"
+        u_id: 0,
       },
       files: [],
       sorts: []
@@ -34,7 +34,6 @@ class SharePic extends Component {
       }
     }
    this.postData(formData);
-    
   }
   //保存图片到服务器并返回图片路径
   postData(formData) {
@@ -60,6 +59,7 @@ class SharePic extends Component {
         //改变state
         this.setState(state => {
           state.work.photos = Object.assign([], photos);
+          state.work.u_id = JSON.parse(sessionStorage.getItem("userInfo")).id;
           return state;
         });
         console.log(this.state.work.photos);
@@ -118,7 +118,10 @@ class SharePic extends Component {
   render() {
     return (
       <div className="sharePic">
-        <Top releaseWork={this.releaseWork.bind(this)} />
+        <Top
+          releaseWork={this.releaseWork.bind(this)}
+          title={this.state.title}
+        />
         <section>
           <ul className="photo-domain">
             <li>
@@ -159,8 +162,8 @@ class SharePic extends Component {
                   return (
                     <li
                       key={ele.s_id}
-                      onTouchEnd={(e) => {
-                        this.getSort(ele,e);
+                      onTouchEnd={e => {
+                        this.getSort(ele, e);
                       }}
                     >
                       {ele.s_type}

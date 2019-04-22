@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
 import './assets/css/animate.css';
-import "antd-mobile/dist/antd-mobile.css";
 import './modules/bus.js';
 import './modules/axios'
 import './assets//js/rem.js';
