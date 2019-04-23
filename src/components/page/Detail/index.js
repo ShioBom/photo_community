@@ -24,7 +24,7 @@ class Detail extends Component {
     let self = this;
     this.$axios({
       method: "post",
-      url: "http://192.168.56.1:3001/admin/getWorkDetail",
+      url: "/admin/getWorkDetail",
       data: obj
     }).then(res => {
       self.setState(state => {
@@ -37,7 +37,7 @@ class Detail extends Component {
   requestComment(data){
     this.$axios({
       method: "post",
-      url: "http://192.168.56.1:3001/admin/getComments",
+      url: "/admin/getComments",
       data: data
     }).then((res)=>{
       this.setState(state => {
@@ -60,7 +60,7 @@ class Detail extends Component {
     };
     this.$axios({
       method:"post",
-      url:"http://192.168.56.1:3001/admin/addComment",
+      url:"/admin/addComment",
       data:obj,
     })
     //评论成功，则清除输入框数据

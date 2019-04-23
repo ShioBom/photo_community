@@ -19,7 +19,7 @@ class Register extends Component{
         let self =this;
         this.$axios({
           method: "post",
-          url: "http://localhost:3001/admin/Register",
+          url: "/admin/Register",
           data: obj
         }).then(res => {
           let result = res.data;

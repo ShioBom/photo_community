@@ -25,7 +25,7 @@ class Index extends Component {
       //点击关注,粉丝表里添加该粉丝id
       this.$axios({
         method: "post",
-        url: "http://localhost:3001/admin/Follow",
+        url: "/admin/Follow",
         data: {
           uid: this.props.login.id,
           fid: obj.u_id
@@ -53,7 +53,7 @@ class Index extends Component {
     let self = this;
     this.$axios({
       method: "post",
-      url: "http://localhost:3001/admin/unFollow",
+      url: "/admin/unFollow",
       data: {
         fid: obj.u_id,
         uid: this.props.login.id
@@ -222,7 +222,7 @@ class Index extends Component {
       e.preventDefault();
     });
     this.$axios
-      .get("http://localhost:3001/admin/getWorks")
+      .get("/admin/getWorks")
       .then(res => {
         this.setState(state => {
           state.works = res.data;

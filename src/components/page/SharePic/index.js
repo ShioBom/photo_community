@@ -39,7 +39,7 @@ class SharePic extends Component {
   postData(formData) {
     this.$axios({
       method: "post",
-      url: "http://localhost:3001/admin/upload",
+      url: "/admin/upload",
       data: formData,
       headers: {
         "Content-Type": "multipart/form-data"
@@ -66,7 +66,7 @@ class SharePic extends Component {
         //将作品信息保存到数据库里面去
         this.$axios({
           method: "post",
-          url: "http://192.168.56.1:3001/admin/releaseWork",
+          url: "/admin/releaseWork",
           type: "json",
           data: this.state.work
         });
@@ -109,7 +109,7 @@ class SharePic extends Component {
   //生命周期钩子函数
   componentDidMount() {
     //获取作品类型，渲染到页面
-    this.$axios.get("http://localhost:3001/admin/getType").then(res => {
+    this.$axios.get("/admin/getType").then(res => {
       let result = res.data;
       console.log(result)
       this.setState({ sorts: result });

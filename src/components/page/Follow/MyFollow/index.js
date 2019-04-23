@@ -21,7 +21,7 @@ class MyFollow extends Component {
       //点击关注,粉丝表里添加该粉丝id
       this.$axios({
         method: "post",
-        url: "http://192.168.56.1:3001/admin/Follow",
+        url: "/admin/Follow",
         data: {
           uid: this.props.login.id,
           fid: obj.u_id
@@ -49,7 +49,7 @@ class MyFollow extends Component {
     let this_props = this.props.Props;
     this.$axios({
       method: "post",
-      url: "http://localhost:3001/admin/unFollow",
+      url: "/admin/unFollow",
       data: {
         fid: obj.following,
         uid: this_props.login.id

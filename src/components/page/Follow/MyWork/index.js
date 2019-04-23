@@ -23,7 +23,7 @@ class GridExample extends Component {
     let u_id = JSON.parse(sessionStorage.getItem("userInfo")).id;
     this.$axios({
       method: "post",
-      url: "http://192.168.56.1:3001/admin/getOwnWorks",
+      url: "/admin/getOwnWorks",
       data: { u_id }
     }).then((res)=>{
       console.log(res.data.result);

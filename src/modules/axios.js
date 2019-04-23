@@ -2,6 +2,5 @@ import { Component } from 'react';
 import axios from 'axios';
 Component.prototype.$axios=axios;
 
-axios.create({
-    baseURL: 'http:127.0.0.1/',
-})
+// axios.create();
+axios.defaults.baseURL="http://10.30.48.71:3001";

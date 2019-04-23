@@ -19,7 +19,7 @@ class Login extends Component {
     let self = this;
     this.$axios({
       method: "post",
-      url: "http://192.168.56.1:3001/admin/Login",
+      url: "/admin/Login",
       data: obj
     }).then(res => {
       if (res.data.status === 1) {
@@ -33,7 +33,7 @@ class Login extends Component {
         self
           .$axios({
             method: "get",
-            url: "http://192.168.56.1:3001/admin/getFollowList",
+            url: "/admin/getFollowList",
             params: { uid: res.data.id }
           })
           .then(res => {

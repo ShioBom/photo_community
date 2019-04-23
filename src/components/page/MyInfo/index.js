@@ -47,7 +47,7 @@ class MyInfo extends Component {
   postFollowerNum(id){
     this.$axios({
       method: "post",
-      url: "http://localhost:3001/admin/getFollowerNum",
+      url: "/admin/getFollowerNum",
       data: {id}
     }).then(res => {
       this.setState((state) => {
@@ -59,7 +59,7 @@ class MyInfo extends Component {
   postFansNum(id) {
     this.$axios({
       method: "post",
-      url: "http://localhost:3001/admin/getFansNum",
+      url: "/admin/getFansNum",
       data: { id }
     }).then(res => {
      this.setState((state)=>{
@@ -72,7 +72,7 @@ class MyInfo extends Component {
   postWorkNum(id) {
     this.$axios({
       method: "post",
-      url: "http://localhost:3001/admin/getWorkNum",
+      url: "/admin/getWorkNum",
       data: { id }
     }).then(res => {
       this.setState((state) => {
