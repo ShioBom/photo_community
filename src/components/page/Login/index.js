@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import "./index.css";
 import { Link } from "react-router-dom";
-import {Toast} from 'antd-mobile'
+import Toast from "antd-mobile/lib/toast"; // 加载 JS
+import "antd-mobile/lib/toast/style/css"; 
 class Login extends Component {
   constructor(props) {
     super(props);

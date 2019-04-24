@@ -1,5 +1,5 @@
 .index_body {
-    background: url("/img/icon/loading.gif") no-repeat center .5rem;
+    background: url("http://192.168.137.1:3001/img/icon/loading.gif") no-repeat center .5rem;
 }
 .index_body dl{
     width: 100%;

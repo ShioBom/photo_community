@@ -20,7 +20,7 @@ class GridExample extends Component {
     this.props.history.push("/Detail/" + JSON.stringify(obj));
   }
   componentDidMount(){
-    let u_id = JSON.parse(sessionStorage.getItem("userInfo")).id;
+    let u_id = JSON.parse(JSON.stringify(this.props.Props.login)).id;
     this.$axios({
       method: "post",
       url: "/admin/getOwnWorks",

@@ -6,9 +6,9 @@ class MyInfo extends Component {
     super(props);
 
     this.state = {
-      title:"作品详情",
+      title: "作品详情",
       str: "登录/注册",
-      portrait_src: "/img/portrait/default.jpg",
+      portrait_src: "http://192.168.137.1:3001/img/portrait/default.jpg",
       isExit: false,
       arr: [
         { name: "关注", num: 0, page: 0, className: "follow-info" },
@@ -62,11 +62,11 @@ class MyInfo extends Component {
       url: "/admin/getFansNum",
       data: { id }
     }).then(res => {
-     this.setState((state)=>{
-       state.arr[1].num=res.data.result;
-       return state;
-     })
-     console.log(this.state.arr);
+      this.setState(state => {
+        state.arr[1].num = res.data.result;
+        return state;
+      });
+      console.log(this.state.arr);
     });
   }
   postWorkNum(id) {
@@ -101,7 +101,10 @@ class MyInfo extends Component {
       <div className="Info">
         <section>
           <div>
-            <img src="./img/photograph/work(1).jpg" alt="信息页图片" />
+            <img
+              src="http://192.168.137.1:3001/img/photograph/work(1).jpg"
+              alt="信息页图片"
+            />
           </div>
           <div className="userInfo">
             <div className="log_img">
@@ -127,7 +130,7 @@ class MyInfo extends Component {
             )}
           </div>
           <ul className="main-info">
-           {this.state.arr.map((item, ind) => (
+            {this.state.arr.map((item, ind) => (
               <li
                 className={item.className}
                 key={ind}

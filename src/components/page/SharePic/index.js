@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Top from "../../common/top";
 import ImagePicker from "./ImagePicker";
+import Toast from "antd-mobile/lib/toast";
+import "antd-mobile/lib/toast/style/css";
 import { withRouter } from 'react-router-dom'
 import "./index.scss";
 class SharePic extends Component {
@@ -69,6 +71,19 @@ class SharePic extends Component {
           url: "/admin/releaseWork",
           type: "json",
           data: this.state.work
+        }).then((res)=>{
+          Toast.info("作品发布成功");
+          this.setState(state => {
+            state.work = {
+              w_id: parseInt(Date.now() % 1000000), //作品id
+              w_title: "", //作品标题
+              w_content: "", //作品描述
+              w_sort: 0, //作品类别},
+              photos: [],
+              u_id: 0,
+            };
+            return state;
+          });
         });
       }
     });

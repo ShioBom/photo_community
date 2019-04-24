@@ -104,16 +104,15 @@ class Index extends Component {
     //前两张图片不需要懒加载;
    if(oImg.length>0){
      oImg[0].setAttribute("src", oImg[0].getAttribute("data_src"));
-     oImg[1].setAttribute("src", oImg[1].getAttribute("data_src"));
      //后续图片懒加载
      myScroll.on("scroll", function () {
-       for (let i = 2; i < oImg.length; i++) {
+       for (let i = 1; i < oImg.length; i++) {
          if (
            Math.abs(oImg[i].offsetTop < Math.abs(this.y) + oContent.offsetHeight)
          ) {
            setTimeout(() => {
              oImg[i].setAttribute("src", oImg[i].getAttribute("data_src"));
-           }, 200);
+           });
          }
        }
      });
@@ -134,16 +133,28 @@ class Index extends Component {
             <div className="swiper-container">
               <div className="swiper-wrapper">
                 <div className="swiper-slide">
-                  <img src="/img/swiper/swiper01.jpg" alt="轮播图1" />
+                  <img
+                    src="http://192.168.137.1:3001/img/swiper/swiper01.jpg"
+                    alt="轮播图1"
+                  />
                 </div>
                 <div className="swiper-slide">
-                  <img src="/img/swiper/swiper02.jpg" alt="轮播图2" />
+                  <img
+                    src="http://192.168.137.1:3001/img/swiper/swiper02.jpg"
+                    alt="轮播图2"
+                  />
                 </div>
                 <div className="swiper-slide">
-                  <img src="/img/swiper/swiper03.jpg" alt="轮播图3" />
+                  <img
+                    src="http://192.168.137.1:3001/img/swiper/swiper03.jpg"
+                    alt="轮播图3"
+                  />
                 </div>
                 <div className="swiper-slide">
-                  <img src="/img/swiper/swiper04.jpg" alt="轮播图4" />
+                  <img
+                    src="http://192.168.137.1:3001/img/swiper/swiper04.jpg"
+                    alt="轮播图4"
+                  />
                 </div>
               </div>
             </div>
@@ -178,7 +189,7 @@ class Index extends Component {
                 </div>
                 <img
                   className="work_img"
-                  src="/img/icon/loading.jpg"
+                  src="http://192.168.137.1:3001/img/icon/loading.jpg"
                   data_src={obj.w_img}
                   alt="图片迷路了!!!"
                   onClick={() => {

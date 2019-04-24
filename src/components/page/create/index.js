@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import {withRouter } from 'react-router-dom';
+import Toast from "antd-mobile/lib/toast";
+import "antd-mobile/lib/toast/style/css";
 import "./index.css";
 class Create extends Component {
   constructor(props) {
@@ -8,9 +10,13 @@ class Create extends Component {
   }
   //跳转到图片分享页面
   sharePic(){
-    console.log("跳转到图片分享页面");
-    this.props.history.push("/SharePic");
-    this.exit();
+    if(sessionStorage.getItem("userInfo")){
+      console.log("跳转到图片分享页面");
+      this.props.history.push("/SharePic");
+      this.exit();
+    }else{
+      Toast.info("要登录才能发布作品哦！");
+    }
   }
   shareArticle(){
     
