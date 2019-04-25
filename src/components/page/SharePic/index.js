@@ -3,31 +3,45 @@ import Top from "../../common/top";
 import ImagePicker from "./ImagePicker";
 import Toast from "antd-mobile/lib/toast";
 import "antd-mobile/lib/toast/style/css";
-import { withRouter } from 'react-router-dom'
+import { withRouter } from "react-router-dom";
 import "./index.scss";
 class SharePic extends Component {
   constructor(props) {
     super(props);
     this.state = {
       work: {
-        w_id: parseInt(Date.now()%1000000), //作品id
+        w_id: parseInt(Date.now() % 1000000), //作品id
         w_title: "", //作品标题
         w_content: "", //作品描述
         w_sort: 0, //作品类别},
         photos: [],
-        u_id: 0,
+        u_id: 0
       },
       files: [],
-      sorts: []
+      sorts: [],
+      widths: [],
+      heights:[]
     };
   }
-  //改变作品图片
+  //改变作品图片并获取上传图片的宽高
   photoChange(files) {
     this.setState({ files: files });
+    let self = this;
+    let heights = [],
+      widths = [];
+    let file, img;
+    files.forEach((item, i) => {
+      img = new Image();
+      img.src = item.url;
+      img.onload = function() {
+        widths.push(parseInt(this.width));
+        heights.push(parseInt(this.height));
+        self.setState({ widths, heights });
+      };
+    });
   }
   //发布作品，将作品保存到数据库中去
   releaseWork() {
-    console.log("发布作品");
     let files = this.state.files;
     var formData = new FormData();
     if (files.length > 0) {
@@ -35,7 +49,7 @@ class SharePic extends Component {
         formData.append("files", files[i].file);
       }
     }
-   this.postData(formData);
+    this.postData(formData);
   }
   //保存图片到服务器并返回图片路径
   postData(formData) {
@@ -55,8 +69,14 @@ class SharePic extends Component {
           //拿到图片id
           let p_id = val.path.split(".")[0].split("/")[2];
           //拿到图片路径
-          let p_path = val.path.replace("public/upload/", "");
-          photos.push({ p_id: parseInt(p_id.substring(0, 6)),w_id:this.state.work.w_id, p_path });
+          let src = val.path.replace("public/upload/", "");
+          photos.push({
+            p_id: parseInt(p_id.substring(0, 6)),
+            w_id: this.state.work.w_id,
+            src,
+            width: this.state.widths[ind],
+            height: this.state.heights[ind]
+          });
         });
         //改变state
         this.setState(state => {
@@ -64,26 +84,17 @@ class SharePic extends Component {
           state.work.u_id = JSON.parse(sessionStorage.getItem("userInfo")).id;
           return state;
         });
-        console.log(this.state.work.photos);
+        console.log("work:",this.state.work.photos);
         //将作品信息保存到数据库里面去
         this.$axios({
           method: "post",
           url: "/admin/releaseWork",
-          type: "json",
           data: this.state.work
-        }).then((res)=>{
-          Toast.info("作品发布成功");
-          this.setState(state => {
-            state.work = {
-              w_id: parseInt(Date.now() % 1000000), //作品id
-              w_title: "", //作品标题
-              w_content: "", //作品描述
-              w_sort: 0, //作品类别},
-              photos: [],
-              u_id: 0,
-            };
-            return state;
-          });
+        }).then(res => {
+          if (res.data.status === 1) {
+            Toast.info(res.data.msg);
+            window.location.reload();
+          }
         });
       }
     });
@@ -105,7 +116,7 @@ class SharePic extends Component {
     });
   }
   //获取作品类型
-  getSort(ele,e) {
+  getSort(ele, e) {
     this.setState(state => {
       state.work.w_sort = ele.s_id;
       return state;
@@ -119,14 +130,13 @@ class SharePic extends Component {
       }
     }
     //设置选中的按钮的颜色
-    e.target.style.background ="#7fe7cc";
+    e.target.style.background = "#7fe7cc";
   }
   //生命周期钩子函数
   componentDidMount() {
     //获取作品类型，渲染到页面
     this.$axios.get("/admin/getType").then(res => {
       let result = res.data;
-      console.log(result)
       this.setState({ sorts: result });
     });
   }
