@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./index.scss";
 import Footer from "../../common/footer";
+import Modal from 'antd-mobile/lib/modal';
+import "antd-mobile/lib/modal/style/css";
+const alert = Modal.alert;
 class MyInfo extends Component {
   constructor(props) {
     super(props);
@@ -8,7 +11,7 @@ class MyInfo extends Component {
     this.state = {
       title: "作品详情",
       str: "登录/注册",
-      portrait_src: "http://192.168.137.1:3001/img/portrait/default.jpg",
+      portrait_src: JSON.parse(sessionStorage.getItem("userInfo")).portrait,
       isExit: false,
       arr: [
         { name: "关注", num: 0, page: 0, className: "follow-info" },
@@ -29,10 +32,8 @@ class MyInfo extends Component {
     //清除缓存
     sessionStorage.removeItem("userInfo");
     sessionStorage.removeItem("FollowList");
-
     //清空redux的state
     this.props.remove();
-
     //清除state
     this.setState(state => {
       state.str = "登录/注册";
@@ -81,6 +82,58 @@ class MyInfo extends Component {
       })
     });
   }
+  takePhoto(){
+    console.log("拍照")
+  }
+  //上传图片处理图片
+  addImg(e){
+    let self;
+    const file = e.target.files[0];
+    let param = new FormData(); //创建form对象
+    param.append('file', file);
+    this.$axios({
+      method: "post",
+      url: "/admin/uploadPortrait",
+      data: param,
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
+    }).then(res=>{
+      let {status,path}=res.data;
+      let u_id = JSON.parse(sessionStorage.getItem("userInfo")).id
+      let param = { path, u_id}
+      console.log(param);
+      if(status===1){
+        console.log(path);
+        this.$axios({
+          method:"post",
+          url:"/admin/storePortrait",
+          data: param
+        })
+        this.setState((state)=>{
+          state.portrait_src = path;
+          return state;
+        });
+        sessionStorage.setItem("userInfo",JSON.stringify({id:u_id,portrait:path}));
+      }
+    })
+  }
+  showAlert(){
+    const alertInstance=alert('选择方式', <div>
+      <input
+        style={{
+          display: 'display'
+        }}
+        ref={(ref) => { this.addportrait = ref }}
+        type='file'
+        accept='image/*'
+        onChange={(e) => { this.addImg(e) }}
+      />
+    </div>, [
+        { text: '拍照', onPress: () => { this.takePhoto() } },
+        { text: '取消', onPress: () => { alertInstance.close()} },
+      ])
+  }
   componentDidMount() {
     let data = this.props.login;
     //判断login存在与否
@@ -108,7 +161,10 @@ class MyInfo extends Component {
           </div>
           <div className="userInfo">
             <div className="log_img">
-              <img src={this.state.portrait_src} alt="头像呢!" />
+              <img src={this.state.portrait_src} alt="头像呢!" 
+                onClick={() =>{this.showAlert()}
+                 }
+              />
             </div>
             <span
               className="log_menu"
@@ -148,6 +204,7 @@ class MyInfo extends Component {
             <li>设置</li>
           </ul>
         </section>
+        
         <Footer />
       </div>
     );
