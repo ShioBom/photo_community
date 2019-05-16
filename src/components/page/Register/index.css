@@ -19,10 +19,10 @@
 .login .main  div {
     border: 1px solid #a09a9a;
     position: relative;
-    margin-bottom: .5rem;
+    margin-bottom: .6rem;
 }
 .login .main  div span{
-    color:palevioletred;
+    color:red;
     position: absolute;
     bottom: -.5rem;
     left: 0;

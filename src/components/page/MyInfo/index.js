@@ -11,7 +11,7 @@ class MyInfo extends Component {
     this.state = {
       title: "作品详情",
       str: "登录/注册",
-      portrait_src: JSON.parse(sessionStorage.getItem("userInfo")).portrait,
+      portrait_src: "",
       isExit: false,
       arr: [
         { name: "关注", num: 0, page: 0, className: "follow-info" },
@@ -200,8 +200,8 @@ class MyInfo extends Component {
             ))}
           </ul>
           <ul className="options">
-            <li>主题</li>
-            <li>设置</li>
+            <li>修改主题</li>
+            <li>我的资料</li>
           </ul>
         </section>
         

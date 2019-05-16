@@ -43,7 +43,7 @@ class Footer extends Component{
               </NavLink>
             </li>
             <li>
-              <NavLink exact to={{pathname:"/MyInfo"}} activeClassName="selected">
+              <NavLink exact to="/MyInfo" activeClassName="selected">
                 <i className="icon-uniE008"></i><span>我的</span>
               </NavLink>
             </li>
