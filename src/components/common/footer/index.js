@@ -37,11 +37,11 @@ class Footer extends Component{
                 <i className="icon-plus"></i>
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               < NavLink exact to = "/Inform" activeClassName="selected">
                 <i className="icon-uniE123"></i><span>通知</span>
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink exact to="/MyInfo" activeClassName="selected">
                 <i className="icon-uniE008"></i><span>我的</span>

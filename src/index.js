@@ -5,6 +5,7 @@ import './index.css';
 import './assets/css/animate.css';
 import './modules/bus.js';
 import './modules/axios'
+import './modules/antd'
 import './assets//js/rem.js';
 import './assets/css/style.css'
 import './assets/css/base.css';

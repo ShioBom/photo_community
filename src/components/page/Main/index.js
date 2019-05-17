@@ -17,7 +17,7 @@ class Main extends Component {
     };
     render() {
       return (
-        <div className="main">
+        <div className="Main">
            <Header navs ={this.state.index_nav}></Header>
           <Index></Index>
            <Footer></Footer>

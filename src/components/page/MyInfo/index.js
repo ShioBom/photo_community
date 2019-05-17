@@ -11,7 +11,7 @@ class MyInfo extends Component {
     this.state = {
       title: "作品详情",
       str: "登录/注册",
-      portrait_src: "",
+      portrait_src: JSON.parse(sessionStorage.getItem("userInfo")) === null ? "http://192.168.137.1:3001/img/portrait/default.jpg" : JSON.parse(sessionStorage.getItem("userInfo")).portrait,
       isExit: false,
       arr: [
         { name: "关注", num: 0, page: 0, className: "follow-info" },
@@ -37,7 +37,7 @@ class MyInfo extends Component {
     //清除state
     this.setState(state => {
       state.str = "登录/注册";
-      state.portrait_src = "/img/portrait/default.jpg";
+      state.portrait_src = "http://192.168.137.1:3001/img/portrait/default.jpg";
       state.isExit = false;
       return state;
     });
@@ -87,7 +87,6 @@ class MyInfo extends Component {
   }
   //上传图片处理图片
   addImg(e){
-    let self;
     const file = e.target.files[0];
     let param = new FormData(); //创建form对象
     param.append('file', file);
@@ -118,6 +117,7 @@ class MyInfo extends Component {
       }
     })
   }
+  //弹出头像选择框
   showAlert(){
     const alertInstance=alert('选择方式', <div>
       <input

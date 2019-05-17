@@ -5,12 +5,12 @@ class Register extends Component{
       super(props)
       this.state = {
          uname:"",
-         unameMsg:"",
+         unameMsg:"",//用户名提示信息
          upwd:"",
-         upwdMsg:"",
+         upwdMsg:"",//密码提示信息
          upwd2Msg:"",
          email:"",
-         emailMsg:"",
+         emailMsg:"",//邮箱提示信息
       };
     };
     submit(){
@@ -27,12 +27,9 @@ class Register extends Component{
         }).then(res => {
           let result = res.data;
           if (result.status === 0) {
-            self.setState(state => {
-              state.unameMsg = "用户名已经存在";
-              return state;
-            });
+            this.Toast.info("用户名已经存在")
           } else if (result.status === -1) {
-            console.log("用户名或密码错误!");
+            this.Toast.info("用户名或密码错误!");
           } else if (result.status === 1) {
             this.postEmail();
             self.props.history.push("/Login");
@@ -41,24 +38,32 @@ class Register extends Component{
     }
     getName(e){
         let val = e.target.value;
-        this.setState((state)=>{
-            state.uname = val;
-            state.unameMsg = "用户名为字母数字组成";
-            return state;
-        })
+      let reg = /^[a-zA-Z0-9]{4,16}$/;
+      if(reg.test(val)){
+        e.target.nextSibling.style.color = "#7bc67b";       
+      }
+      this.setState((state)=>{
+          state.uname = val;
+          reg.test(val) ? state.unameMsg = "用户名合法" : state.unameMsg="用户名由4-16位字母数字下划线组成";
+           return state;
+      })
     }
     getPwd(e){
          let val = e.target.value;
+      let flag = /^(?=.*\d)(?=.*[a-zA-Z])(?=.*[\W_]).{6,18}$/.test(val);
+         if(flag){
+           e.target.nextSibling.style.color = "#7bc67b";       
+         }
          this.setState((state) => {
              state.upwd = val;
-             state.upwdMsg="密码为"
+           flag ? state.upwdMsg = "密码合法" : state.upwdMsg = "密码由6-18位字母数字特殊字符组成";
              return state;
          })
     }
     getPwd2(e){
          let val = e.target.value;
          if(val===this.state.upwd){
-           e.target.nextSibling.style.color = "green";       
+           e.target.nextSibling.style.color = "#7bc67b";       
             this.setState((state)=>{
                 state.upwd2Msg="密码正确";
                 return state;
@@ -75,10 +80,10 @@ class Register extends Component{
       let val = e.target.value;
       let reg = /^[1]\d{10}$/.test(val) || /^\w+@\w+\.\w+$/;
       if (reg.test(val)){
-        e.target.nextSibling.style.color = "green";       
+        e.target.nextSibling.style.color = "#7bc67b";       
       }
       this.setState((state) => {
-        reg.test(val) ? state.emailMsg = "邮箱合法" : state.emailMsg = "邮箱格式错误";
+        reg.test(val) ? state.emailMsg = "邮箱合法" : state.emailMsg = "请输入正确的邮箱";
         state.email = val;
         return state;
       })
@@ -89,7 +94,7 @@ class Register extends Component{
         url:"/admin/send",
         data:{email:this.state.email}
       }).then(res=>{
-        console.log(res.data.msg);
+        this.Toast.info(res.data.msg);
       })
     }
     render() {

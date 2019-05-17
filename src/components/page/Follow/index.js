@@ -9,7 +9,7 @@ import "antd-mobile/lib/badge/style/css";
 import MyFollow from './MyFollow';
 import MyFans from "./MyFans";
 import MyWork from "./MyWork";
-import "./index.css";
+import "./index.scss";
 class Follow extends Component {
   constructor(props) {
     super(props);

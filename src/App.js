@@ -9,12 +9,12 @@ import Create from './components/page/create';
 import Detail from "./components/page/Detail";
 import Follow from './container/page/Follow';
 import SharePic from "./components/page/SharePic";
+import Search from './components/page/Search';
 import {CSSTransition} from 'react-transition-group';
 
 class App extends Component {
   constructor(props) {       
     super(props)
-  
     this.state = {
        isShow:false
     };
@@ -44,6 +44,7 @@ class App extends Component {
             <Route exact path="/Follow/:page" component={Follow} />
             <Route exact path="/SharePic" component={SharePic} />
             <Route exact path="/Detail/:id" component={Detail} />
+            <Route exact path="/Search" component={Search} />
             <Route path="/" component={Main} />
           </Switch>
           <CSSTransition

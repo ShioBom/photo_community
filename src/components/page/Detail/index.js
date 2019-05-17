@@ -30,7 +30,6 @@ class Detail extends Component {
       u_id: data.u_id,
       w_id: data.w_id
     };
-    let self = this;
     this.$axios({
       method: "post",
       url: "/admin/getWorkDetail",

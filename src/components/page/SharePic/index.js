@@ -29,7 +29,7 @@ class SharePic extends Component {
     let self = this;
     let heights = [],
       widths = [];
-    let file, img;
+    let img;
     files.forEach((item, i) => {
       img = new Image();
       img.src = item.url;
