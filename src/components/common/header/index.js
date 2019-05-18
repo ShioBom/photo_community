@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom'
 import "./index.css";
 class Header extends Component{
     constructor(props) {
@@ -7,6 +8,10 @@ class Header extends Component{
          
       };
     };
+    Search(){
+      console.log("toSearch")
+      this.props.history.push("/Search");
+    }
     render() {
       return (
         <header>
@@ -14,7 +19,7 @@ class Header extends Component{
               <div className="search">
                 <i className=""></i>
                 <form>
-                  <input type="text" placeholder="搜索"></input>
+                <input type="text" placeholder="搜索" onFocus={() => { this.Search()}}></input>
                 </form>
               </div>
             </div>
@@ -23,4 +28,4 @@ class Header extends Component{
     };
     
 }
-export default Header;
+export default withRouter(Header);

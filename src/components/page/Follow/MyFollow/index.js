@@ -108,7 +108,6 @@ class MyFollow extends Component {
                       this.follow(obj);
                     }}
                   >
-                    {" "}
                     + 关注
                   </span>
                 ) : (
