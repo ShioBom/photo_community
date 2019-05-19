@@ -1,106 +1,165 @@
 $Myinfo_bg_color: #f3f8ff;
 $Myinfo_session_bg_color: #deecff;
 $Myinfo_bd_color: #c6cfff;
+
 .Info {
-  width: 100%;
-  height: 100%;
-  img {
     width: 100%;
-  }
-  section {
-    background-color: $Myinfo_bg_color;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    bottom: 1.3rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    .userInfo {
-      margin: 0.1rem 0;
-      background-color: $Myinfo_session_bg_color;
-      padding: 0.1rem 0;
-      width: 100%;
-      position: absolute;
-      top: 0;
-      bottom: 1.5rem;
-      padding: 0.5rem;
-      color: #505050;
-      display: flex;
-      position: relative;
-      i {
-        color: #fff;
-        font-size: 0.6rem;
-        line-height: 1.2rem;
-        padding-left: 0.3rem;
-      }
-      span {
-        height: 1.2rem;
-        width: 30%;
-        display: inline-block;
-      }
-      span.exit {
+    height: 100%;
+
+    img {
+        width: 100%;
+    }
+
+    section {
+        background-color: $Myinfo_bg_color;
+        width: 100%;
         position: absolute;
-        right: 0;
-        line-height: 1.2rem;
-      }
-      .log_img {
-        height: 1.2rem;
-        width: 1.2rem;
-        border-radius: 1.2rem;
-        background: white;
-        overflow: hidden;
-        flex-shrink: 1;
-        img {
-          height: 1.2rem;
-          width: 1.2rem;
-          display: block;
+        top: 0;
+        bottom: 1.3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .userInfo {
+            margin: 0.1rem 0;
+            background-color: $Myinfo_session_bg_color;
+            padding: 0.1rem 0;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 1.5rem;
+            padding: 0.5rem;
+            color: #505050;
+            display: flex;
+            position: relative;
+
+            i {
+                color: #fff;
+                font-size: 0.6rem;
+                line-height: 1.2rem;
+                padding-left: 0.3rem;
+            }
+
+            span {
+                height: 1.2rem;
+                width: 30%;
+                display: inline-block;
+            }
+
+            span.exit {
+                position: absolute;
+                right: 0;
+                line-height: 1.2rem;
+            }
+
+            .log_img {
+                height: 1.2rem;
+                width: 1.2rem;
+                border-radius: 1.2rem;
+                background: white;
+                overflow: hidden;
+                flex-shrink: 1;
+
+                img {
+                    height: 1.2rem;
+                    width: 1.2rem;
+                    display: block;
+                }
+            }
+
+            .log_menu {
+                padding-left: 0.3rem;
+                line-height: 1.2rem;
+            }
         }
-      }
-      .log_menu {
-        padding-left: 0.3rem;
-        line-height: 1.2rem;
-      }
+
+        ul.main-info {
+            margin: 0.1rem 0;
+            background: $Myinfo_session_bg_color;
+            width: 100%;
+
+            li {
+                float: left;
+                width: 33.3%;
+                height: 1.5rem;
+                line-height: .6rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                border-right: 1px solid #ccc;
+            }
+
+            li:last-child {
+                border-right: none;
+            }
+        }
+
+        ul.options {
+            flex: 1;
+            margin: 0.1rem 0;
+            background: $Myinfo_session_bg_color;
+            height: auto;
+            width: 100%;
+
+            li {
+                border-bottom: 1px solid $Myinfo_bd_color;
+                height: 1.3rem;
+                line-height: 1.3rem;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                justify-content: center;
+                border-right: 1px solid #ccc;
+                padding: 0.2rem;
+            }
+
+            li:last-child {
+                border-right: none;
+            }
+        }
     }
-    ul.main-info {
-      margin: 0.1rem 0;
-      background: $Myinfo_session_bg_color;
-      width: 100%;
-      li {
-        float: left;
-        width: 33.3%;
-        height: 1.5rem;
-        line-height: .6rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        border-right: 1px solid #ccc;
-      }
-      li:last-child {
-        border-right: none;
-      }
+}
+
+//重写样式
+.am-modal-button-group-h {
+    flex-direction: column;
+}
+
+.am-modal-content {
+    padding-top: 0 !important;
+}
+
+.am-modal-body {
+    touch-action: none; //解决这个报错：Unable to preventDefault inside passive event listener due to target being treated as passive.
+    padding: 0 15px !important;
+    height: 1rem !important;
+}
+
+.inp-file {
+    position: relative;
+
+    input {
+        position: relative;
+        filter: alpha(opacity=0);
+        opacity: 0;
+        -moz-opacity: 0;
+        opacity: 0;
+        width: 100%;
+        left: 0rem;
+        color: #000;
+        font-size: 18px;
     }
-    ul.options {
-      flex: 1;
-      margin: 0.1rem 0;
-      background: $Myinfo_session_bg_color;
-      height: auto;
-      width: 100%;
-      li {
-        border-bottom: 1px solid $Myinfo_bd_color;
-        height: 1.3rem;
-        line-height: 1.3rem;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        justify-content: center;
-        border-right: 1px solid #ccc;
-        padding: 0.2rem;
-      }
-      li:last-child {
-        border-right: none;
-      }
+
+    div {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 18px;
+        color: #000;
+        line-height: 1rem;
+        text-align: center;
+        width: 100%;
+        // background: pink;
     }
-  }
 }

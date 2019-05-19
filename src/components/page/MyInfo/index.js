@@ -87,51 +87,52 @@ class MyInfo extends Component {
   }
   //上传图片处理图片
   addImg(e){
+    e.preventDefault=true;
     const file = e.target.files[0];
     let param = new FormData(); //创建form对象
     param.append('file', file);
-    this.$axios({
-      method: "post",
-      url: "/admin/uploadPortrait",
-      data: param,
-      headers: {
-        "Content-Type": "multipart/form-data"
-      }
-    }).then(res=>{
-      let {status,path}=res.data;
-      let u_id = JSON.parse(sessionStorage.getItem("userInfo")).id
-      let param = { path, u_id}
-      console.log(param);
-      if(status===1){
-        console.log(path);
-        this.$axios({
-          method:"post",
-          url:"/admin/storePortrait",
-          data: param
-        })
-        this.setState((state)=>{
-          state.portrait_src = path;
-          return state;
-        });
-        sessionStorage.setItem("userInfo",JSON.stringify({id:u_id,portrait:path}));
-      }
-    })
+      this.$axios({
+        method: "post",
+        url: "/admin/uploadPortrait",
+        data: param,
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      }).then(res => {
+        let { status, path } = res.data;
+        let u_id = JSON.parse(sessionStorage.getItem("userInfo")).id
+        let param = { path, u_id }
+        console.log(param);
+        if (status === 1) {
+          console.log(path);
+          this.$axios({
+            method: "post",
+            url: "/admin/storePortrait",
+            data: param
+          })
+          this.setState((state) => {
+            state.portrait_src = path;
+            return state;
+          });
+          sessionStorage.setItem("userInfo", JSON.stringify({ id: u_id, portrait: path }));
+        }
+      })
   }
   //弹出头像选择框
   showAlert(){
-    const alertInstance=alert('选择方式', <div>
+    const alertInstance=alert('', <div className="inp-file">
+      <div>从手机选择</div>      
       <input
         style={{
           display: 'display'
         }}
-        ref={(ref) => { this.addportrait = ref }}
         type='file'
         accept='image/*'
         onChange={(e) => { this.addImg(e) }}
       />
     </div>, [
-        { text: '拍照', onPress: () => { this.takePhoto() } },
-        { text: '取消', onPress: () => { alertInstance.close()} },
+        { text: '拍照', onClick: () => { this.takePhoto() } },
+        { text: '退出', onClick: () => { alertInstance.close()} },
       ])
   }
   componentDidMount() {
