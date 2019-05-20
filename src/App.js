@@ -10,6 +10,7 @@ import Detail from "./components/page/Detail";
 import Follow from './container/page/Follow';
 import SharePic from "./components/page/SharePic";
 import Search from './components/page/Search';
+import ItemPage from './components/page/ItemPage';
 import {CSSTransition} from 'react-transition-group';
 
 class App extends Component {
@@ -45,6 +46,7 @@ class App extends Component {
             <Route exact path="/SharePic" component={SharePic} />
             <Route exact path="/Detail/:id" component={Detail} />
             <Route exact path="/Search" component={Search} />
+            <Route exact path="/ItemPage" component={ItemPage} />
             <Route path="/" component={Main} />
           </Switch>
           <CSSTransition

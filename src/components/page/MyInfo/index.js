@@ -83,7 +83,8 @@ class MyInfo extends Component {
     });
   }
   takePhoto(){
-    console.log("拍照")
+    //跳转到拍照页面
+    this.props.history.push("/ItemPage");
   }
   //上传图片处理图片
   addImg(e){
@@ -131,7 +132,7 @@ class MyInfo extends Component {
         onChange={(e) => { this.addImg(e) }}
       />
     </div>, [
-        { text: '拍照', onClick: () => { this.takePhoto() } },
+        { text: '拍照', onPress: () => { this.takePhoto() } },
         { text: '退出', onClick: () => { alertInstance.close()} },
       ])
   }
