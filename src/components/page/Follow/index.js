@@ -20,8 +20,8 @@ class Follow extends Component {
   render() {
     const tabs = [
       { title: <Badge>关注</Badge> },
-      { title: <Badge text={"1"}>粉丝</Badge> },
-      { title: <Badge text={"3"}>作品</Badge> }
+      { title: <Badge>粉丝</Badge> },
+      { title: <Badge>作品</Badge> }
     ];
     return (
       <div className="follow_list">
@@ -29,12 +29,6 @@ class Follow extends Component {
           <Tabs
             tabs={tabs}
             initialPage={this.state.initialPage}
-            onChange={(tab, index) => {
-              console.log("onChange", index, tab);
-            }}
-            onTabClick={(tab, index) => {
-              console.log("onTabClick", index, tab);
-            }}
             tabBarBackgroundColor={"#373640"}
             tabBarInactiveTextColor={"#fff"}
             tabBarActiveTextColor={"yellowgreen"}

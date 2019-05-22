@@ -9,29 +9,44 @@ class GridExample extends Component {
     super(props);
 
     this.state = {
-     
+     pageUpdate:false
     };
   }
   //进入详情页面
   goDetail(data) {
     console.log(data)
     let obj = { 'u_id': data.u_id, 'w_id': data.w_id };
-    console.log(obj);
     this.props.history.push("/Detail/" + JSON.stringify(obj));
   }
-  componentDidMount(){
+  //删除作品
+  deleteWork(e,data){
+    e.stopPropagation();//阻止事件冒泡
+    console.log("删除作品");
+    let params={w_id:data.w_id};
+    this.$axios.post("/admin/DeleteWork",params).then(res=>{
+      if(res.data.status===1){
+        this.Toast.info(res.data.msg);
+        this.requestWorks();
+      }else{
+        this.Toast.info(res.data.msg);
+      }
+    })
+  }
+  requestWorks(){
     let u_id = JSON.parse(JSON.stringify(this.props.Props.login)).id;
     this.$axios({
       method: "post",
       url: "/admin/getOwnWorks",
       data: { u_id }
-    }).then((res)=>{
-      console.log(res.data.result);
-      this.setState((state)=>{
-        state.work=res.data.result;
+    }).then((res) => {
+      this.setState((state) => {
+        state.work = res.data.result;
         return state;
       })
     });
+  }
+  componentDidMount(){
+   this.requestWorks();
   }
   render() {
     return (
@@ -43,7 +58,7 @@ class GridExample extends Component {
           hasLine={false}
           onClick={(el,ind)=>{this.goDetail(this.state.work[ind])}}
           renderItem={dataItem => (
-            <div style={{ padding: ".3rem" }}>
+            <div className="work_item" style={{ padding: ".3rem" }}>
               <img
                 src={dataItem.w_img}
                 style={{ width: "2.5rem", height: "2.5rem" }}
@@ -54,6 +69,7 @@ class GridExample extends Component {
               >
                 <span className="work-title">{dataItem.w_title}</span>
               </div>
+              <span className="del_btn" onClick={(e)=>{this.deleteWork(e,dataItem)}}>×</span>
             </div>
           )}
         />

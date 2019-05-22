@@ -15,9 +15,8 @@ class MyFans extends Component {
     this.$axios({
       method: "post",
       url: "/admin/getFansList",
-      data: JSON.parse(JSON.stringify(this.props.Props.FollowList))
+      data: {u_id:JSON.parse(JSON.stringify(this.props.Props.login)).id}
     }).then(res => {
-      console.log(res.data);
       if (res.data.status === 1) {
         this.setState(state => {
           state.data = res.data.result;

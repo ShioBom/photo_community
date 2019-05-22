@@ -104,9 +104,10 @@ class Index extends Component {
     //前两张图片不需要懒加载;
    if(oImg.length>0){
      oImg[0].setAttribute("src", oImg[0].getAttribute("data_src"));
+     oImg[1].setAttribute("src", oImg[1].getAttribute("data_src"));
      //后续图片懒加载
      myScroll.on("scroll", function () {
-       for (let i = 1; i < oImg.length; i++) {
+       for (let i = 2; i < oImg.length; i++) {
          if (
            Math.abs(oImg[i].offsetTop < Math.abs(this.y) + oContent.offsetHeight)
          ) {

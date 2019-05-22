@@ -7,12 +7,12 @@ class Nav extends Component {
     super(props)
   
     this.state = {
-       title:this.props.title
+       title:this.props.title,
+       right:this.props.releaseWork!==undefined?true:false,
     }
   }
   onBack(){
     this.props.history.goBack();
-    console.log(this.props);
   }
   render() {
     return (
@@ -21,7 +21,7 @@ class Nav extends Component {
           this.onBack()
             }}>×</span>
             <span>{this.state.title}</span>
-            <span onTouchEnd={this.props.releaseWork}>发布</span>
+        {this.state.right ? <span onTouchEnd={this.props.releaseWork}>发布</span> : <span></span>}
         </header>
     )
   }

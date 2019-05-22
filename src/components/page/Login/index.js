@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import "./index.css";
 import { Link } from "react-router-dom";
-import Toast from "antd-mobile/lib/toast"; // 加载 JS
-import "antd-mobile/lib/toast/style/css"; 
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -38,7 +37,7 @@ class Login extends Component {
             params: { uid: res.data.id }
           })
           .then(res => {
-            console.log("登录成功");
+           this.Toast.info(res.data.message);
             //然后跳转到首页
             this.props.history.push("/");
             if (res.data.status === 1) {
@@ -46,7 +45,7 @@ class Login extends Component {
             }
           });
       } else {
-        Toast.info(res.data.msg, 1);
+        this.Toast.info(res.data.msg, 1);
       }
     });
   }

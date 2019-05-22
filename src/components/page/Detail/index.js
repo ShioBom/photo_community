@@ -86,7 +86,9 @@ class Detail extends Component {
       method: "post",
       url: "/admin/addComment",
       data: obj
-    });
+    }).then(res=>{
+      window.location.reload(true); 
+    })
     //评论成功，则清除输入框数据
     e.target.previousSibling.value = "";
   }

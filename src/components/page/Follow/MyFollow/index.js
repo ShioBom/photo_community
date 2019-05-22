@@ -13,7 +13,6 @@ class MyFollow extends Component {
   }
   //点击关注
   follow(obj) {
-    console.log("follow",obj);
     let self = this;
     if (JSON.stringify(this.props.login) === "{}") {
       //轻提示
@@ -33,7 +32,6 @@ class MyFollow extends Component {
             following: obj.u_id,
             u_portrait: obj.u_portrait
           };
-          console.log(followData);
           //添加redux中state的数据
           self.props.addFollow(followData);
           self.setState(state => {
@@ -60,7 +58,6 @@ class MyFollow extends Component {
         let ind = self.state.data.findIndex(ele => {
           return ele.following === obj.following;
         });
-        console.log(ind);
         this_props.removeFollow(ind);
         self.setState(state => {
           state.data = JSON.parse(JSON.stringify(self.props.Props.FollowList));
@@ -88,8 +85,6 @@ class MyFollow extends Component {
       state.data = JSON.parse(JSON.stringify(this.props.Props.FollowList));
       return state;
     });
-
-    console.log(this.props.Props);
   }
   render() {
     return (

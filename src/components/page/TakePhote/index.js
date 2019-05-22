@@ -11,16 +11,16 @@ class ItemPage extends Component {
             flag: true
         };
     };
-    //获得图片base64编码转化成图片
+    //获得base64编码格式图片转化成图片文件
     imgUrl() {
         let filename = 'file';
-        var imgsrc = document.getElementById('canvas1').toDataURL("image/png");
+        var imgsrc = document.getElementById('canvas1').toDataURL("image/jpg");
         let arr = imgsrc.split(',')
         let mime = arr[0].match(/:(.*?);/)[1]
         let suffix = mime.split('/')[1]
         let bstr = atob(arr[1])
         let n = bstr.length
-        let u8arr = new Uint8Array(n)
+        let u8arr = new Uint8Array(n);
         while (n--) {
             u8arr[n] = bstr.charCodeAt(n)
         }
@@ -58,13 +58,22 @@ class ItemPage extends Component {
     //拍照
     getPhoto() {
         // context.drawImage(img, sx, sy, swidth, sheight, x, y, width, height);
-        context1.drawImage(video, 20, 20, 100, 100); //将video对象内指定的区域捕捉绘制到画布上指定的区域，实现拍照。
+        context1.drawImage(video, 0,0,375,375,0, 0, 100, 100); //将video对象内指定的区域捕捉绘制到画布上指定的区域，实现拍照。
         this.setState({ flag: false });
         // this.imgUrl()
+    }
+    storePortrait(img_src){
+        let u_id = JSON.parse(sessionStorage.getItem("userInfo")).id;
+        this.$axios.post("/admin/storePortrait",{path:img_src,u_id}).then(res=>{
+            if(res.data.status===1){
+                this.Toast.info(res.data.msg);
+            }
+        })        
     }
     uploadPortrait(){
         let file = this.imgUrl();
         let param = new FormData(); //创建form对象
+        let u_id = JSON.parse(sessionStorage.getItem("userInfo")).id;
         param.append('file', file);
         this.$axios({
             method:"post",
@@ -73,21 +82,25 @@ class ItemPage extends Component {
         }).then(res=>{
             if(res.data.status===1){
                 let path = res.data.path;
-                this.props.history.push("/MyInfo");
-                let u_id = JSON.parse(sessionStorage.getItem("userInfo")).id
+                console.log(u_id);
+                sessionStorage.removeItem("userInfo");
                 sessionStorage.setItem("userInfo", JSON.stringify({ id: u_id, portrait: path }));
+                this.storePortrait(path);
+                this.props.history.push("MyInfo");
             }
         })
     }
     componentDidMount() {
         video = document.querySelector('video');
         canvas1 = document.getElementById('canvas1');
+        canvas1.height = 100;
+        canvas1.width=100;
         context1 = canvas1.getContext('2d');
         context1.fillStyle = "lightgrey";
-        context1.fillRect(20, 20, 100, 100,100,100);
+        context1.fillRect(0, 0, 100, 100);
         if (navigator.mediaDevices.getUserMedia || navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia) {
             //调用用户媒体设备, 访问摄像头
-            this.getUserMedia({ video: { width: 480, height: 480 } }, this.successFunc, this.errorFunc);
+            this.getUserMedia({ video: { width: 375, height: 375 } }, this.successFunc, this.errorFunc);
         } else {
            this.Toast.info('不支持访问用户媒体');
         }
@@ -99,7 +112,7 @@ class ItemPage extends Component {
                 <div className="toolbar">
                     <canvas id="canvas1"></canvas>
                     <button className="takephoto_btn" onClick={() => { this.getPhoto() }}>拍照</button>
-                    <button className="confirm_btn" onClick={() => {this.uploadPortrait()}}>√</button>
+                    <button className="confirm_btn" onClick={() => {this.uploadPortrait()}}>OK</button>
                 </div>
 
             </div>

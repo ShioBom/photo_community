@@ -8,42 +8,33 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-
+    background: black;
     .toolbar {
-        height: 20%;
+        height: 18%;
         width: 100%;
         display: flex;
         justify-content: space-around;
         align-items: center;
-
+        background: black;
         canvas {
-            width: auto;
-            height: 100%;
             z-index: 1;
         }
 
         .takephoto_btn {
-            position: relative;
-            z-index: 1;
-            top: 0;
-            left: -1.6rem;
             width: 1rem;
             height: 1rem;
             border-radius: .5rem;
-            background: lightgrey;
+            background: white;
             color: grey;
         }
 
         .confirm_btn {
-            position: relative;
-            z-index: 1;
-            top: 0;
-            left: -.1rem;
             width: 1rem;
             height: 1rem;
             border-radius: .5rem;
-            background: rgb(184, 133, 133);
-            color: red;
+            background: black;
+            border: 1px solid white;
+            color: white;
         }
     }
 }

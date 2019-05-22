@@ -27,11 +27,11 @@ class Footer extends Component{
                 <i className="icon-uniE021"></i><span>发现</span>
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink exact to="/Follow/0" activeClassName="selected">
                 <i className="icon-uniE007"></i><span>关注</span>
               </NavLink>
-            </li>
+            </li> */}
             <li onClick = {()=>{this.show()}}>
               < NavLink exact to = "" >
                 <i className="icon-plus"></i>

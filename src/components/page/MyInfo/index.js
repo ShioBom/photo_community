@@ -13,6 +13,7 @@ class MyInfo extends Component {
       str: "登录/注册",
       portrait_src: JSON.parse(sessionStorage.getItem("userInfo")) === null ? "http://192.168.137.1:3001/img/portrait/default.jpg" : JSON.parse(sessionStorage.getItem("userInfo")).portrait,
       isExit: false,
+      loginStatus: sessionStorage.getItem("userInfo")!==null?true:false,
       arr: [
         { name: "关注", num: 0, page: 0, className: "follow-info" },
         { name: "粉丝", num: 0, page: 1, className: "fans-info" },
@@ -67,7 +68,6 @@ class MyInfo extends Component {
         state.arr[1].num = res.data.result;
         return state;
       });
-      console.log(this.state.arr);
     });
   }
   postWorkNum(id) {
@@ -84,11 +84,11 @@ class MyInfo extends Component {
   }
   takePhoto(){
     //跳转到拍照页面
-    this.props.history.push("/ItemPage");
+    this.props.history.push("/TakePhote");
   }
   //上传图片处理图片
   addImg(e){
-    e.preventDefault=true;
+    // e.preventDefault=true;
     const file = e.target.files[0];
     let param = new FormData(); //创建form对象
     param.append('file', file);
@@ -103,9 +103,7 @@ class MyInfo extends Component {
         let { status, path } = res.data;
         let u_id = JSON.parse(sessionStorage.getItem("userInfo")).id
         let param = { path, u_id }
-        console.log(param);
         if (status === 1) {
-          console.log(path);
           this.$axios({
             method: "post",
             url: "/admin/storePortrait",
@@ -121,20 +119,32 @@ class MyInfo extends Component {
   }
   //弹出头像选择框
   showAlert(){
-    const alertInstance=alert('', <div className="inp-file">
-      <div>从手机选择</div>      
-      <input
-        style={{
-          display: 'display'
-        }}
-        type='file'
-        accept='image/*'
-        onChange={(e) => { this.addImg(e) }}
-      />
-    </div>, [
-        { text: '拍照', onPress: () => { this.takePhoto() } },
-        { text: '退出', onClick: () => { alertInstance.close()} },
-      ])
+    if(this.state.loginStatus){
+      const alertInstance = alert('', <div className="inp-file">
+        <div>从手机选择</div>
+        <input
+          style={{
+            display: 'display'
+          }}
+          type='file'
+          accept='image/*'
+          onChange={(e) => { this.addImg(e) }}
+        />
+      </div>, [
+          { text: '拍照', onPress: () => { this.takePhoto() } },
+          { text: '退出', onClick: () => { alertInstance.close() } },
+        ])
+    }else{
+      this.Toast.info("你还没有登录哦！");
+    }
+
+  }
+  editInfo(){
+    if(this.state.loginStatus){
+      this.props.history.push("/EditInfo/true");
+    }else{
+      this.Toast.info("请登录！");
+    }
   }
   componentDidMount() {
     let data = this.props.login;
@@ -202,8 +212,8 @@ class MyInfo extends Component {
             ))}
           </ul>
           <ul className="options">
-            <li>修改主题</li>
-            <li>我的资料</li>
+            <li onClick={() => this.props.push("EditInfo/false")}>修改主题</li>
+            <li onClick={()=>{this.editInfo()}}>我的资料</li>
           </ul>
         </section>
         
