@@ -146,6 +146,9 @@ class MyInfo extends Component {
       this.Toast.info("请登录！");
     }
   }
+  updateColor(){
+    this.props.history.push("/EditInfo/false");
+  }
   componentDidMount() {
     let data = this.props.login;
     //判断login存在与否
@@ -212,7 +215,7 @@ class MyInfo extends Component {
             ))}
           </ul>
           <ul className="options">
-            <li onClick={() => this.props.push("EditInfo/false")}>修改主题</li>
+            <li onClick={() => {this.updateColor()}}>修改主题</li>
             <li onClick={()=>{this.editInfo()}}>我的资料</li>
           </ul>
         </section>

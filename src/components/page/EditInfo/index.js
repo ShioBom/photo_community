@@ -15,27 +15,30 @@ class EditInfo extends Component {
             u_email: "",
             u_sex: "",
             u_signature: "",
-            pageStatus: JSON.parse(),
+            pageStatus: JSON.parse(this.props.match.params.flag) || false,
         };
     };
     updateBirthVal(e) {
         let val = e.target.value.substr(0, 10);
-        console.log(val);
         this.setState((state) => {
             state.u_birthday = val;
             return state;
         })
+        setTimeout(() => {
+            this.requestUpdate();
+        }, 200);
     }
     //发送修改请求
     requestUpdate() {
         let params = {
             u_id: JSON.parse(sessionStorage.getItem("userInfo")).id,
             u_name: this.state.u_name,
-            u_sex: this.state.u_sex==='女'?0:1,
-            u_birthday: this.state.u_birthday,
+            u_sex: this.state.u_sex === '女' ? 0 : 1,
+            u_birthday: new Date(this.state.u_birthday),
             u_signature: this.state.u_signature,
             u_email: this.state.u_email,
         }
+        console.log(params)
         this.$axios.post("/admin/updateUserByID", params).then(res => {
             if (res.data.status === 1) {
                 this.Toast.info(res.data.msg);
@@ -57,7 +60,9 @@ class EditInfo extends Component {
                     } else {
                         state.u_sex = res.data.result.u_sex === 1 ? '男' : '女';
                     }
-                    state.u_birthday = res.data.result.u_birthday.substr(0,10);
+                    if (res.data.result.u_birthday) {
+                        state.u_birthday = res.data.result.u_birthday.substr(0, 10);
+                    }
                     state.u_signature = res.data.result.u_signature;
                     state.u_email = res.data.result.u_email;
                     return state;
@@ -102,7 +107,7 @@ class EditInfo extends Component {
             this.requestUpdate();
         }, 200);
     }
-    updateColor(e){
+    updateColor(e) {
         // e.target.parent.children.removeClass("selected");
         // e.target.addClass("selected");
         console.log(e.target)
@@ -113,13 +118,16 @@ class EditInfo extends Component {
     render() {
         return (
             <div className="userDetail">
-                <Top title={this.state.pageStatus?'用户资料':'主题颜色'}></Top>
-                {this.state.pageStatus? (<ul>
+                <Top title={this.state.pageStatus ? '用户资料' : '主题颜色'}></Top>
+                {this.state.pageStatus ? (<ul>
                     <li><span className="right">昵称</span><span onClick={() => prompt('修改昵称', '', [
                         { text: '取消' },
                         { text: '确定', onPress: (value) => { this.updateValue('u_name', value) } },
                     ], 'default', this.state.u_name)}>{this.state.u_name}　〉</span></li>
-                    <li><span className="right">出生年月</span><input type="date" value={this.state.u_birthday} onChange={(e) => { this.updateBirthVal(e) }}></input></li>
+                    <li><span className="right">出生年月</span>
+                        <input type="date" value={this.state.u_birthday}
+                            onChange={(e) => { this.updateBirthVal(e) }}></input>
+                    </li>
                     <li><span className="right">性别</span><span onClick={() => prompt('修改性别', '', [
                         { text: '取消' },
                         { text: '确定', onPress: value => this.updateValue('u_sex', value) },
@@ -132,17 +140,17 @@ class EditInfo extends Component {
                         { text: '取消' },
                         { text: '确定', onPress: value => this.updateValue('u_signature', value) },
                     ], 'default', this.state.u_signature)}>{this.state.u_signature}　〉</span></li>
-                </ul> ): 
+                </ul>) :
                     (<dl>
                         <dt>主题颜色</dt>
-                        <dd className="selected" onClick={()=>{this.updateColor()}}><span className="color" style={{ background: '#505050' }}></span><span>系统默认</span></dd>
-                        <dd onClick={(e)=>{this.updateColor(e)}}><span style={{ background:'#f68787'}} className="color"></span><span>死亡芭比粉</span></dd>
-                        <dd onClick={(e)=>{this.updateColor(e)}}><span className="color" style={{ background: '#6fc2d0' }}></span><span>天空蓝</span></dd>
-                        <dd onClick={(e)=>{this.updateColor(e)}}><span className="color" style={{ background: '#a7d129' }}></span><span>早苗绿</span></dd>
-                        <dd onClick={(e)=>{this.updateColor(e)}}><span className="color" style={{ background: '#ffe26f' }}></span><span>咸蛋黄</span></dd>
+                        <dd className="selected" onClick={() => { this.updateColor() }}><span className="color" style={{ background: '#505050' }}></span><span>系统默认</span></dd>
+                        <dd onClick={(e) => { this.updateColor(e) }}><span style={{ background: '#f68787' }} className="color"></span><span>死亡芭比粉</span></dd>
+                        <dd onClick={(e) => { this.updateColor(e) }}><span className="color" style={{ background: '#6fc2d0' }}></span><span>天空蓝</span></dd>
+                        <dd onClick={(e) => { this.updateColor(e) }}><span className="color" style={{ background: '#a7d129' }}></span><span>早苗绿</span></dd>
+                        <dd onClick={(e) => { this.updateColor(e) }}><span className="color" style={{ background: '#ffe26f' }}></span><span>咸蛋黄</span></dd>
 
                     </dl>)}
-                
+
             </div>
         )
     };

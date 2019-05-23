@@ -32,9 +32,9 @@ class Login extends Component {
         //登录了,获取关注列表,这个判断的目的是为了减少http请求数
         self
           .$axios({
-            method: "get",
+            method: "post",
             url: "/admin/getFollowList",
-            params: { uid: res.data.id }
+            params: { u_id: res.data.id }
           })
           .then(res => {
            this.Toast.info(res.data.message);

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./index.css";
 import Toast from "antd-mobile/lib/toast"; // 加载 JS
-import "antd-mobile/lib/toast/style/css"; 
+import "antd-mobile/lib/toast/style/css";
 const followList = [];
 class MyFollow extends Component {
   constructor(props) {
@@ -68,7 +68,7 @@ class MyFollow extends Component {
   }
   //关注状态显示
   followStatus(obj) {
-    let flag = false; 
+    let flag = false;
     //如果登录了,关注列表已经初始化
     if (this.state.data.length > 0) {
       for (let i = 0; i < this.state.data.length; i++) {
@@ -106,15 +106,15 @@ class MyFollow extends Component {
                     + 关注
                   </span>
                 ) : (
-                  <span
-                    className="followed"
-                    onTouchEnd={() => {
-                      this.unfollow(obj);
-                    }}
-                  >
-                    已关注
+                    <span
+                      className="followed"
+                      onTouchEnd={() => {
+                        this.unfollow(obj);
+                      }}
+                    >
+                      已关注
                   </span>
-                )}
+                  )}
               </li>
             );
           })}

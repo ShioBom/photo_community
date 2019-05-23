@@ -22,8 +22,23 @@ class Detail extends Component {
           w_content: ""
         }
       ],
-      comment: []
+      comment: [],
+      likes_count:0,
+      likeStatus:true,
     };
+  }
+  requestLikesNum(w_id){
+    console.log(w_id);
+    this.$axios.post("/admin/getLikesNum",{w_id}).then(res=>{
+      if(res.data.status===1){
+        this.setState((state)=>{
+          state.likes_count = res.data.result;
+          return state;
+        })
+      }else{
+        this.Toast.info(res.data.msg);
+      }
+    })
   }
   requestWork(data) {
     let obj = {
@@ -92,13 +107,61 @@ class Detail extends Component {
     //评论成功，则清除输入框数据
     e.target.previousSibling.value = "";
   }
+  requestLike(params){
+    this.$axios.post("/admin/likeWork", params).then(res => {
+      if (res.data.status === 1) {
+        //点赞
+        this.requestLikesNum(params.w_id);
+        this.setState({likeStatus:false})
+      }
+      this.Toast.info(res.data.msg);
+    })
+  }
+  requestDisLike(params){
+    this.$axios.post("/admin/dislike", params).then(res => {
+      if (res.data.status === 1) {
+        //取消赞
+        this.requestLikesNum(params.w_id);
+        this.setState(state=>{
+          state.likeStatus = true;
+        })
+      }
+      this.Toast.info(res.data.msg);
+    })
+  }
+  likeHandler(data){
+    console.log("likeHandler");
+    console.log(sessionStorage.getItem("userInfo"));
+    if(JSON.parse(sessionStorage.getItem("userInfo"))===null){
+      this.Toast.info("请登录");
+    }else{
+      let u_id = JSON.parse(sessionStorage.getItem("userInfo")).id
+      //判断点赞状态
+      let obj = {
+        u_id,
+        w_id: data.w_id
+      };
+      this.$axios.post("/admin/likeStatus", obj).then(res => {
+        if (res.data.status === 1) {
+          //取消赞
+          this.requestDisLike(obj);
+        } else if (res.data.status === 0) {
+          //点赞
+          this.requestLike(obj);
+        } else {
+          this.Toast.info(res.data.msg);
+        }
+      })
+    } 
+  }
   componentDidMount() {
     let data = JSON.parse(this.props.match.params.id);
     //请求作品数据
     this.requestWork(data);
-    this.requestComment(data);
-
     //请求评论数据
+    this.requestComment(data);
+    //请求点赞数
+    this.requestLikesNum(data.w_id);
     let target = document.querySelector(".scroll-part");
     target.addEventListener("touchmove", function(e) {
       e.preventDefault();
@@ -124,8 +187,11 @@ class Detail extends Component {
             </div>
             <article>
               <div className="pic-area" id="waterfall" />
-              <h3>{this.state.work[0].w_title}</h3>
+              <h3>{this.state.work[0].w_title} </h3>
               <p>{this.state.work[0].w_content}</p>
+              <span onClick={() => { this.likeHandler(JSON.parse(this.props.match.params.id))}}>{this.state.likeStatus?"点赞":"取消点赞"}　
+              <i>{this.state.likes_count}</i>
+              </span>
             </article>
             <ul>
               {this.state.comment.map((item, ind) => (
