@@ -16,6 +16,7 @@ class EditInfo extends Component {
             u_sex: "",
             u_signature: "",
             pageStatus: JSON.parse(this.props.match.params.flag) || false,
+            colorupdate:false,
         };
     };
     updateBirthVal(e) {
@@ -107,13 +108,20 @@ class EditInfo extends Component {
             this.requestUpdate();
         }, 200);
     }
-    updateColor(e) {
-        // e.target.parent.children.removeClass("selected");
-        // e.target.addClass("selected");
-        console.log(e.target)
+    updateColor(e,ind) {
+        sessionStorage.setItem("theme",JSON.stringify(ind));
+        //打钩
+        window.location.reload(true);
+        var p = e.target.parentNode.children; //获取父级的所有子节点
+        for (var i = 0; i < p.length; i++) {  //循环
+            p[i].classList.remove("selected");
+        }
+        e.target.classList.add("selected");
     }
     componentWillMount() {
-        this.requestUserInfo();
+        if (JSON.parse(this.props.match.params.flag)){
+            this.requestUserInfo();
+        }
     }
     render() {
         return (
@@ -143,11 +151,11 @@ class EditInfo extends Component {
                 </ul>) :
                     (<dl>
                         <dt>主题颜色</dt>
-                        <dd className="selected" onClick={() => { this.updateColor() }}><span className="color" style={{ background: '#505050' }}></span><span>系统默认</span></dd>
-                        <dd onClick={(e) => { this.updateColor(e) }}><span style={{ background: '#f68787' }} className="color"></span><span>死亡芭比粉</span></dd>
-                        <dd onClick={(e) => { this.updateColor(e) }}><span className="color" style={{ background: '#6fc2d0' }}></span><span>天空蓝</span></dd>
-                        <dd onClick={(e) => { this.updateColor(e) }}><span className="color" style={{ background: '#a7d129' }}></span><span>早苗绿</span></dd>
-                        <dd onClick={(e) => { this.updateColor(e) }}><span className="color" style={{ background: '#ffe26f' }}></span><span>咸蛋黄</span></dd>
+                        <dd  onClick={(e) => { this.updateColor(e,0) }}><span className="color" style={{ background: '#505050' }}></span><span>系统默认</span></dd>
+                        <dd onClick={(e) => { this.updateColor(e,1) }}><span style={{ background: '#f68787' }} className="color"></span><span>死亡芭比粉</span></dd>
+                        <dd onClick={(e) => { this.updateColor(e,2) }}><span className="color" style={{ background: '#6fc2d0' }}></span><span>天空蓝</span></dd>
+                        <dd onClick={(e) => { this.updateColor(e,3) }}><span className="color" style={{ background: '#a7d129' }}></span><span>早苗绿</span></dd>
+                        <dd onClick={(e) => { this.updateColor(e,4) }}><span className="color" style={{ background: '#ffe26f' }}></span><span>咸蛋黄</span></dd>
 
                     </dl>)}
 

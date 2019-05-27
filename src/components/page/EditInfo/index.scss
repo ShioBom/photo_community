@@ -78,9 +78,10 @@
         }
 
         .selected {
-            background: url('http://192.168.137.1:3001/img/icon/selected.gif') center right no-repeat;
-            background-size: .5rem .5rem;
-            background-origin: content-box;
+            background: url('http://192.168.137.1:3001/img/icon/selected.gif') no-repeat !important;
+            background-position: center  right !important;
+            background-size: .5rem .5rem !important;
+            background-origin: content-box !important;
         }
     }
 }

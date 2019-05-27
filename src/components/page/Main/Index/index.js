@@ -237,7 +237,7 @@ class Index extends Component {
       .get("/admin/getWorks")
       .then(res => {
         this.setState(state => {
-          state.works = res.data;
+          state.works = res.data.result;
           return state;
         });
       })

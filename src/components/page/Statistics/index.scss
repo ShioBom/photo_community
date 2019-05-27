@@ -1,0 +1,29 @@
+.Statistic {
+    width: 100%;
+    height: 100%;
+    left: 0;
+    position: relative;
+    .statistic_wrapper {
+        position: absolute;
+        top: 0;
+        bottom: 1.3rem;
+        width: 100%;
+        background: #d2f3e0;
+        overflow-y: scroll;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        #pie_pic {
+            width: 350px;
+            height: 400px;
+        }
+
+        #line_pic {
+            width: 350px;
+            height: 400px;
+        }
+    }
+
+
+}

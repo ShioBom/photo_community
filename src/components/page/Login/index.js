@@ -37,7 +37,6 @@ class Login extends Component {
             params: { u_id: res.data.id }
           })
           .then(res => {
-           this.Toast.info(res.data.message);
             //然后跳转到首页
             this.props.history.push("/");
             if (res.data.status === 1) {

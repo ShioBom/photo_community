@@ -9,6 +9,7 @@ class SharePic extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      title:"作品发布",
       work: {
         w_id: parseInt(Date.now() % 1000000), //作品id
         w_title: "", //作品标题

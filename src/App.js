@@ -12,6 +12,7 @@ import SharePic from "./components/page/SharePic";
 import Search from './components/page/Search';
 import TakePhote from './components/page/TakePhote';
 import EditInfo from './components/page/EditInfo';
+import Statistics from './components/page/Statistics';
 import {CSSTransition} from 'react-transition-group';
 
 class App extends Component {
@@ -49,6 +50,7 @@ class App extends Component {
             <Route exact path="/Search" component={Search} />
             <Route exact path="/TakePhote" component={TakePhote} />
             <Route exact path="/EditInfo/:flag" component={EditInfo} />
+            <Route exact path="/Statistic" component={Statistics} />
             <Route path="/" component={Main} />
           </Switch>
           <CSSTransition

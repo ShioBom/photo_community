@@ -60,7 +60,6 @@ class ItemPage extends Component {
         // context.drawImage(img, sx, sy, swidth, sheight, x, y, width, height);
         context1.drawImage(video, 0,0,375,375,0, 0, 100, 100); //将video对象内指定的区域捕捉绘制到画布上指定的区域，实现拍照。
         this.setState({ flag: false });
-        // this.imgUrl()
     }
     storePortrait(img_src){
         let u_id = JSON.parse(sessionStorage.getItem("userInfo")).id;
@@ -81,11 +80,11 @@ class ItemPage extends Component {
             data:param
         }).then(res=>{
             if(res.data.status===1){
+                this.storePortrait(path);
                 let path = res.data.path;
                 console.log(u_id);
                 sessionStorage.removeItem("userInfo");
                 sessionStorage.setItem("userInfo", JSON.stringify({ id: u_id, portrait: path }));
-                this.storePortrait(path);
                 this.props.history.push("MyInfo");
             }
         })

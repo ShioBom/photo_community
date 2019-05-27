@@ -25,6 +25,7 @@ class Detail extends Component {
       comment: [],
       likes_count:0,
       likeStatus:true,
+      commentStatus:0,
     };
   }
   requestLikesNum(w_id){
@@ -102,8 +103,13 @@ class Detail extends Component {
       url: "/admin/addComment",
       data: obj
     }).then(res=>{
-      window.location.reload(true); 
+      // this.state.commentStatus = res.data.status;
+      this.Toast.info(res.data.msg,100);
     })
+    // let self = this;
+    // setTimeout(() => {
+    //   this.requestComment(JSON.parse(self.props.match.params.id));
+    // }, 200);
     //评论成功，则清除输入框数据
     e.target.previousSibling.value = "";
   }

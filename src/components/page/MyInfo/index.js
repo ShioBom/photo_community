@@ -127,7 +127,7 @@ class MyInfo extends Component {
             display: 'display'
           }}
           type='file'
-          accept='image/*'
+          accept='image/*' 
           onChange={(e) => { this.addImg(e) }}
         />
       </div>, [

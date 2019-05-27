@@ -1,0 +1,35 @@
+$font-corlor:#fff;
+$bg_color:#f68787;
+$input_color:pink;
+$footer_bg_color:#fff;
+$footer_font_color:#666;
+
+header {
+    background: $bg_color;
+    color: $font-corlor;
+
+    a {
+        color: $font-corlor;
+    }
+}
+
+.search {
+    background: $input_color;
+    input {
+        background: $input_color;
+        color: $font-corlor;
+    }
+}
+
+.top {
+    background: $bg_color;
+    color: $font-corlor;
+}
+
+footer {
+    background: $footer_bg_color;
+
+    ul li a {
+        color: $footer_font_color;
+    }
+}
