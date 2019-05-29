@@ -51,7 +51,7 @@ class Login extends Component {
         if (num) {
             let date2 = new Date(date1);
             date2.setDate(date1.getDate() + num);
-            if(date2.getMonth()+1<=10){
+            if (date2.getMonth() + 1 <= 10) {
                 return `${date2.getFullYear()}-0${date2.getMonth() + 1}-${date2.getDate()}`
             }
             return `${date2.getFullYear()}-${date2.getMonth() + 1}-${date2.getDate()}`
@@ -71,8 +71,8 @@ class Login extends Component {
             this.getDate(-1),
             this.getDate()
         ]
-        let commentData = [0,0,0,0,0,0,0];
-        let likeData = [0,0,0,0,0,0,0]
+        let commentData = [0, 0, 0, 0, 0, 0, 0];
+        let likeData = [0, 0, 0, 0, 0, 0, 0]
         let params = {
             u_id: id,
             date1: this.getDate(-6),
@@ -82,16 +82,16 @@ class Login extends Component {
             if (res.data.status === 1) {
                 res.data.result.forEach(ele => {
                     console.log(ele);
-                    let ind = week.indexOf(ele.c_time.slice(0,10));
+                    let ind = week.indexOf(ele.c_time.slice(0, 10));
                     console.log(ind);
-                    if(ind!==-1){
-                        commentData[ind]=ele.num;
+                    if (ind !== -1) {
+                        commentData[ind] = ele.num;
                     }
                 })
-               this.setState(state=>{
-                   state.CommentNumArr = commentData;
-                   return state;
-               })
+                this.setState(state => {
+                    state.CommentNumArr = commentData;
+                    return state;
+                })
             }
         })
         this.$axios.post("/admin/queryLikeNum", params).then(res => {
@@ -112,8 +112,8 @@ class Login extends Component {
             }
         })
         setTimeout(() => {
-            this.createLine();            
-        }, 200);        
+            this.createLine();
+        }, 200);
     }
     createPie() {
         var myChart = echarts.init(document.getElementById('pie_pic'));

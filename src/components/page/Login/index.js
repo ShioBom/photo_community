@@ -29,24 +29,25 @@ class Login extends Component {
           uname: obj.uname,
           portrait: res.data.portrait
         });
-        //登录了,获取关注列表,这个判断的目的是为了减少http请求数
-        self
-          .$axios({
-            method: "post",
+          self.$axios({
+            method: "get",
             url: "/admin/getFollowList",
-            params: { u_id: res.data.id }
-          })
-          .then(res => {
-            //然后跳转到首页
-            this.props.history.push("/");
+            params: { u_id: res.data.id}
+          }).then(res => {
             if (res.data.status === 1) {
+              console.log(res.data.result)
               self.props.addFollowList(res.data.result);
+              //然后跳转到首页
+              self.props.history.push("/");
             }
           });
       } else {
         this.Toast.info(res.data.msg, 1);
       }
     });
+  }
+  requestFollowList(){
+    
   }
   setName(e) {
     let val = e.target.value;
@@ -61,6 +62,9 @@ class Login extends Component {
       state.upwd = val;
       return state;
     });
+  }
+  componentWillUnmount(){
+    //登录了,获取关注列表,这个判断的目的是为了减少http请求数
   }
   render() {
     return (

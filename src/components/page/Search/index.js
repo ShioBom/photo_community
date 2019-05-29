@@ -88,20 +88,6 @@ class Main extends Component {
                                     <Card.Header
                                         title={item.u_name}
                                         thumb={item.u_portrait}
-                                        extra={false ? (
-                                            <span
-                                                onTouchEnd={() => { }}
-                                            >
-                                                + 关注
-                                        </span>
-                                        ) : (
-                                                <span
-                                                    className="followed"
-                                                    onTouchEnd={() => { }}
-                                                >
-                                                    已关注
-                                          </span>
-                                            )}
                                     />
                                 </Card>)
                             })}

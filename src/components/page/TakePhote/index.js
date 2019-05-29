@@ -80,8 +80,8 @@ class ItemPage extends Component {
             data:param
         }).then(res=>{
             if(res.data.status===1){
-                this.storePortrait(path);
                 let path = res.data.path;
+                this.storePortrait(path);
                 console.log(u_id);
                 sessionStorage.removeItem("userInfo");
                 sessionStorage.setItem("userInfo", JSON.stringify({ id: u_id, portrait: path }));

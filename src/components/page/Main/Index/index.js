@@ -5,7 +5,7 @@ import Swiper from "swiper/dist/js/swiper.js";
 import "swiper/dist/css/swiper.min.css";
 import { withRouter } from "react-router-dom";
 import Toast from "antd-mobile/lib/toast";// 加载 CSS
-import "antd-mobile/lib/toast/style/css"; 
+import "antd-mobile/lib/toast/style/css";
 class Index extends Component {
   constructor(props) {
     super(props);
@@ -102,29 +102,29 @@ class Index extends Component {
     //自定义滚动事件
     let oImg = document.querySelectorAll(".work_img");
     //前两张图片不需要懒加载;
-   if(oImg.length>0){
-     oImg[0].setAttribute("src", oImg[0].getAttribute("data_src"));
-     oImg[1].setAttribute("src", oImg[1].getAttribute("data_src"));
-     //后续图片懒加载
-     myScroll.on("scroll", function () {
-       for (let i = 2; i < oImg.length; i++) {
-         if (
-           Math.abs(oImg[i].offsetTop < Math.abs(this.y) + oContent.offsetHeight)
-         ) {
-           setTimeout(() => {
-             oImg[i].setAttribute("src", oImg[i].getAttribute("data_src"));
-           });
-         }
-       }
-     });
-   }
-   
+    if (oImg.length > 0) {
+      oImg[0].setAttribute("src", oImg[0].getAttribute("data_src"));
+      oImg[1].setAttribute("src", oImg[1].getAttribute("data_src"));
+      //后续图片懒加载
+      myScroll.on("scroll", function () {
+        for (let i = 2; i < oImg.length; i++) {
+          if (
+            Math.abs(oImg[i].offsetTop < Math.abs(this.y) + oContent.offsetHeight)
+          ) {
+            setTimeout(() => {
+              oImg[i].setAttribute("src", oImg[i].getAttribute("data_src"));
+            });
+          }
+        }
+      });
+    }
+
   }
   //进入详情页面
   goDetail(data) {
-    let obj = { 'u_id': data.u_id, 'w_id': data.w_id};
+    let obj = { 'u_id': data.u_id, 'w_id': data.w_id };
     console.log(obj);
-    this.props.history.push("/Detail/" +JSON.stringify(obj));
+    this.props.history.push("/Detail/" + JSON.stringify(obj));
   }
   render() {
     return (
@@ -178,15 +178,15 @@ class Index extends Component {
                       + 关注
                     </span>
                   ) : (
-                    <span
-                      className="followed"
-                      onClick={() => {
-                        this.unfollow(obj);
-                      }}
-                    >
-                      已关注
+                      <span
+                        className="followed"
+                        onClick={() => {
+                          this.unfollow(obj);
+                        }}
+                      >
+                        已关注
                     </span>
-                  )}
+                    )}
                 </div>
                 <img
                   className="work_img"
@@ -216,6 +216,8 @@ class Index extends Component {
 
   //页面第一次挂载时触发
   componentDidMount() {
+    let myScroll,
+      self = this;
     console.log("index mounted", this.props);
     //轮播图
     this.setState(state => {
@@ -223,20 +225,16 @@ class Index extends Component {
       return state;
     });
     this.createSwiper();
-    //定义滚动条
-    let myScroll,
-      self = this;
     //所有需要懒加载的图片
     let oContent = document.querySelector(".index_body");
     //阻止默认事件
     let target = document.querySelector(".index_body");
-    target.addEventListener("touchmove", function(e) {
+    target.addEventListener("touchmove", function (e) {
       e.preventDefault();
     });
-    this.$axios
-      .get("/admin/getWorks")
-      .then(res => {
-        this.setState(state => {
+    
+    self.$axios.get("/admin/getWorks").then(res => {
+        self.setState(state => {
           state.works = res.data.result;
           return state;
         });
